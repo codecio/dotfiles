@@ -1,0 +1,47 @@
+# General
+font-family = "JetBrainsMono Nerd Font"
+font-size = 18
+font-feature = -liga
+theme = tokyonight
+cursor-style = block
+cursor-style-blink = true
+
+# Window & padding
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
+window-save-state = always
+window-inherit-working-directory = true
+
+# macOS feel
+macos-titlebar-style = transparent
+macos-option-as-alt = true
+background-opacity = 0.96
+background-blur-radius = 20
+
+# Scrollback & quality
+scrollback-limit = 100000000
+copy-on-select = clipboard
+clipboard-trim-trailing-spaces = true
+clipboard-paste-protection = true
+
+# Advertise TERM=xterm-256color everywhere (local + remote) instead of
+# Ghostty's native xterm-ghostty. Reason: we SSH to heterogeneous remote
+# targets where xterm-ghostty terminfo isn't available or can't be installed.
+# xterm-256color is universal and ships with every OS.
+# We lose: styled/colored underlines (LSP curly squiggles render flat),
+#         Kitty keyboard protocol extensions.
+# We keep: 256 colors, truecolor (COLORTERM=truecolor), mouse, clipboard,
+#         bracketed paste, synchronized output (Ghostty applies regardless
+#         of TERM), every standard xterm feature.
+term = xterm-256color
+
+# Shell integration
+shell-integration = zsh
+shell-integration-features = cursor,sudo,title,ssh-env
+
+# Power User Extras
+quick-terminal-position = top
+quick-terminal-animation-duration = 0.15
+keybind = global:cmd+ctrl+t=toggle_quick_terminal
+keybind = cmd+k=clear_screen

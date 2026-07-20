@@ -1,0 +1,89 @@
+# --- History ---
+# HISTSIZE and SAVEHIST are zsh special parameters read internally.
+# shellcheck disable=SC2034
+HISTSIZE=100000
+# shellcheck disable=SC2034
+SAVEHIST=100000
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_SPACE
+setopt HIST_VERIFY
+setopt EXTENDED_HISTORY
+
+# --- Environment ---
+export CLICOLOR=1
+export PATH=/usr/local/sbin:$PATH
+
+# --- Aliases ---
+alias ll='ls -lhA'
+alias whatmypub='dig +short @ns1-1.akamaitech.net ANY whoami.akamai.net'
+alias brewup='brew update && brew upgrade && brew cleanup'
+
+# eza shortcuts (ls stays real; type `eza ...` to learn it)
+if command -v eza &>/dev/null; then
+  alias el='eza -lbF --git --icons=auto'
+  alias ell='eza -lhAbF --git --group-directories-first --icons=auto'
+  alias ela='eza -lahbF --git --group-directories-first --icons=auto'
+  alias elt='eza --tree --level=2 --icons=auto'
+  alias ellt='eza -lhAbF --tree --level=2 --git --icons=auto'
+fi
+
+# --- Functions ---
+logout() { sudo launchctl bootout user/"$(id -u "$1")"; }
+reload() { exec zsh -l; }
+
+# --- Prompt ---
+eval "$(starship init zsh)"
+
+# --- Shell integrations ---
+command -v atuin  &>/dev/null && eval "$(atuin init zsh)"
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+eval "$(direnv hook zsh)"
+
+# --- Completions ---
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+
+if [[ -x "$(brew --prefix)/bin/terraform" ]]; then
+  complete -o nospace -C "$(brew --prefix)/bin/terraform" terraform
+fi
+
+# --- fzf ---
+[ -f ~/.config/fzf/fzf.zsh ] && source ~/.config/fzf/fzf.zsh
+bindkey "ç" fzf-cd-widget   # ALT-C fallback when Option is not Meta
+
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+--color=fg:#c0caf5,bg:#1a1b26,fg+:#c0caf5,bg+:#292e42,hl:#3d59a1,hl+:#7aa2f7,info:#737aa2,marker:#bb9af7,prompt:#7dcfff,spinner:#7dcfff,pointer:#7dcfff,header:#9ece6a,border:#565f89,label:#a9b1d6,query:#c0caf5,selected-bg:#33467c \
+--border=rounded \
+--border-label= \
+--prompt='> ' \
+--marker='>' \
+--pointer='▶' \
+--separator='─' \
+--scrollbar='│'"
+
+# Ctrl+T: file picker with bat preview
+if command -v bat &>/dev/null; then
+  export FZF_CTRL_T_OPTS="
+    --preview-window=right:60%:border-rounded
+    --preview 'bat --color=always --line-range=:500 {}'
+    --bind=ctrl-/:toggle-preview
+  "
+fi
+
+# Alt+C: directory picker with eza tree preview
+if command -v eza &>/dev/null; then
+  export FZF_ALT_C_OPTS="
+    --preview-window=right:50%:border-rounded
+    --preview 'eza --tree --level=2 --icons=auto --color=always {}'
+    --bind=ctrl-/:toggle-preview
+  "
+fi
+
+# --- zsh-syntax-highlighting (must be last) ---
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

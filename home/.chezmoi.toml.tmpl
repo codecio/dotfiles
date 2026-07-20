@@ -1,0 +1,9 @@
+{{- $machine := promptStringOnce . "machine" "Machine profile (home, work)" -}}
+sourceDir = {{ (joinPath .chezmoi.homeDir "dotfiles") | quote }}
+
+[data]
+    machine = {{ $machine | quote }}
+
+[git]
+    autoCommit = false
+    autoPush = false

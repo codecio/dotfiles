@@ -1,0 +1,59 @@
+# GUI apps & user-facing tools. NOT required for dotfiles to function.
+# Install with: make apps
+
+# Productivity
+# Move and resize windows using keyboard shortcuts or snap areas
+cask "rectangle"
+# Configurable document editor that supports Markdown
+cask "typora"
+# AI-first productivity assistant for Microsoft 365
+cask "microsoft-365-copilot"
+
+# Communication
+# Team communication and collaboration software
+cask "slack"
+# Remote desktop client
+cask "microsoft-remote-desktop"
+# Remote desktop
+cask "parsec"
+
+# Media
+# Music streaming service
+cask "spotify"
+# Open-source screen recorder built with web technology
+cask "kap"
+# Open-source software for live streaming and screen recording
+cask "obs"
+
+# Dev tools
+# Write, edit, and chat about your code with AI
+cask "cursor"
+# Open-source code editor
+cask "visual-studio-code"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
+# Collaboration platform for API development
+cask "postman"
+# Universal database tool and SQL client
+cask "dbeaver-community"
+# Android SDK component
+cask "android-platform-tools"
+# Eclipse-based LDAP browser and directory client
+cask "apache-directory-studio"
+# Brings the power of Copilot coding agent directly to your terminal
+cask "copilot-cli"
+# GUI replacement for the Java command-line utilities keytool and jarsigner
+cask "keystore-explorer"
+# JDK from the Eclipse Foundation (Adoptium)
+cask "temurin"
+# Development environment
+cask "vagrant"
+cask "vagrant-manager"
+# Virtualiser for x86 hardware
+cask "virtualbox"
+
+# Utilities
+# Web browser focusing on privacy
+cask "brave-browser"
+# Utilise mouse side navigation buttons
+cask "sensiblesidebuttons"

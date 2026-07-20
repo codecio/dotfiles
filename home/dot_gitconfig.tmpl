@@ -1,0 +1,31 @@
+[user]
+	name = codecio
+	email = matt@colecio.com
+
+# Per-directory identity overrides.
+# Trailing slash on the path matters — it means "this dir and everything under it".
+[includeIf "gitdir:~/development/"]
+	path = ~/.gitconfig.work
+[includeIf "gitdir:~/home/"]
+	path = ~/.gitconfig.personal
+[includeIf "gitdir:~/dotfiles/"]
+	path = ~/.gitconfig.personal
+
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[core]
+	editor = cursor --wait
+[diff]
+	tool = default-difftool
+[difftool "default-difftool"]
+	cmd = cursor --wait --diff $LOCAL $REMOTE
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential

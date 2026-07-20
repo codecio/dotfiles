@@ -1,0 +1,55 @@
+---
+description: Chezmoi dotfiles repo conventions, workflows, and guardrails
+alwaysApply: true
+---
+
+# dotfiles (chezmoi-managed macOS)
+
+Personal + work dotfiles for `github.com/codecio/dotfiles`. Edit source under `home/`, never live `~/.foo` files.
+
+## Architecture
+
+| Path | Role |
+|------|------|
+| `home/` | Chezmoi source (`dot_foo` → `~/.foo`, `private_dot_ssh/` → `~/.ssh/`, `.tmpl` for templates) |
+| `Brewfile` | Core dotfiles-required CLI tools only |
+| `Brewfile.apps` | GUI apps (Rectangle, Slack, Spotify, …) |
+| `Brewfile.archive` | Gitignored historical reference — do not resurrect or commit |
+| `Makefile` | Single entry point — `make help` lists all targets |
+| `.pre-commit-config.yaml` + `.gitleaks.toml` | Secret scanning (keep) |
+
+## Conventions
+
+- **Git identity:** path-based via `includeIf` in `dot_gitconfig.tmpl` — `~/development/*` → work, `~/home/*` and `~/dotfiles` → personal
+- **Machine profile:** `home` or `work`, prompted once at `chezmoi init` (`home/.chezmoi.toml.tmpl`)
+
+## Workflows
+
+- Track new dotfile: `chezmoi add ~/.foo` or edit `home/` + `make apply`
+- Add CLI tool: edit `Brewfile` + `make brew-bundle`
+- Add GUI app: edit `Brewfile.apps` + `make apps`
+- Apply changes: `make apply`
+- Full sync: `make sync`
+- Check for leaks: `make lint`
+
+## Do NOT
+
+- Reintroduce SOPS/age/Bitwarden — removed intentionally; discuss before adding encryption
+- Commit `Brewfile.archive` (gitignored)
+- Add work hostnames, IPs, employer names, or fleet details to committed files (public repo)
+- Edit `~/.zshrc`, `~/.gitconfig`, or other live home files — edit `home/` source + `make apply`
+- Add user apps to `Brewfile` — only dotfile-setup tools belong there
+
+## Before commit
+
+```bash
+make lint    # gitleaks, detect-secrets, yaml, EOF, whitespace
+make apply   # verify chezmoi templates parse
+```
+
+## Docs
+
+- `docs/bootstrap.md` — fresh Mac setup
+- `docs/chezmoi.md` — profiles, apply, add files
+- `docs/brew.md` — Brewfile split
+- `docs/shell.md` — zsh, Starship, fzf, tmux paths

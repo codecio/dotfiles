@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+
+# Chezmoi local state (if source is used directly)
+.chezmoi.toml
+
+# Historical brew dump — kept locally for reference, not committed
+Brewfile.archive
+
+# Local overrides
+*.local
+
+# Secrets (never commit)
+.env
+.env.*
+*.pem
+*.key
+*_rsa
+*_dsa
+*_ed25519
+id_rsa*
+id_ed25519*
+credentials.json
+secrets.json
