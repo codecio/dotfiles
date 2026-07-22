@@ -1,6 +1,6 @@
 # CORE: Tools required for the dotfiles setup itself.
 # Run `make bootstrap` or `make brew-bundle`.
-# For GUI apps (Rectangle, Slack, etc.) see Brewfile.apps.
+# For GUI apps see Brewfile.apps. For daily CLI toolkit see Brewfile.cli.
 
 brew "chezmoi"
 cask "ghostty"

@@ -29,15 +29,20 @@ On an **existing machine** with tools already installed, bootstrap detects and s
 ```bash
 make brew-bundle        # re-sync core Brewfile without full bootstrap
 make apps               # install GUI apps from Brewfile.apps
+make cli                # install daily CLI toolkit from Brewfile.cli
 make apply              # apply dotfile changes only
 ```
 
 ## What's in this repo
 
+| File | Contents | Install |
+|------|----------|---------|
+| `Brewfile` | Dotfile setup | `make brew-bundle` (part of `make bootstrap`) |
+| `Brewfile.apps` | GUI casks | `make apps` |
+| `Brewfile.cli` | Daily CLI toolkit | `make cli` |
+
 | Path | Purpose |
 |------|---------|
-| `Brewfile` | Core dotfile toolchain (`make brew-bundle`) |
-| `Brewfile.apps` | GUI apps — Slack, Spotify, Rectangle, etc. (`make apps`) |
 | `Brewfile.archive` | Historical brew dump (local reference, gitignored) |
 | `home/` | Chezmoi source tree |
 | `Makefile` | Task runner (`make help`) — bootstrap + daily ops |
@@ -64,7 +69,7 @@ Git identity is path-based (`includeIf` in `dot_gitconfig.tmpl`) — not prompte
 - [docs/bootstrap.md](docs/bootstrap.md) — fresh Mac vs existing machine
 - [docs/shell.md](docs/shell.md) — shell tool config paths
 - [docs/chezmoi.md](docs/chezmoi.md) — profiles, apply, add files
-- [docs/brew.md](docs/brew.md) — core vs apps vs archive
+- [docs/brew.md](docs/brew.md) — Brewfile split (core, cli, apps, archive)
 
 ## After scaffold (manual)
 

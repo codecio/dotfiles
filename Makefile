@@ -35,7 +35,7 @@ RESET := \033[0m
 
 .PHONY: help \
         apply diff edit status sync lint \
-        bootstrap upgrade reinit reset-baseline clean whoami apps \
+        bootstrap upgrade reinit reset-baseline clean whoami apps cli \
         xcode-clt brew brew-bundle chezmoi-init fzf-install tpm-install hooks-install
 
 ##@ Daily ops
@@ -108,6 +108,10 @@ whoami: ## Show active chezmoi machine profile
 apps: ## Install GUI apps from Brewfile.apps (Rectangle, Slack, Spotify, etc.)
 	@printf "$(YELLOW)→ Running brew bundle (apps)...$(RESET)\n"
 	brew bundle --file=$(REPO)/Brewfile.apps
+
+cli: ## Install daily CLI toolkit from Brewfile.cli
+	@printf "$(YELLOW)→ Running brew bundle (cli)...$(RESET)\n"
+	brew bundle --file=$(REPO)/Brewfile.cli
 
 ##@ Bootstrap sub-steps (rarely needed individually)
 

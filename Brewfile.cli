@@ -1,0 +1,81 @@
+# Daily CLI toolkit — tools used across development work but not required for the dotfiles setup itself.
+# Install with: `make cli`
+# Core dotfile deps live in Brewfile; GUI apps in Brewfile.apps.
+
+tap "fluxcd/tap"
+tap "hashicorp/tap"
+tap "hudochenkov/sshpass"
+tap "teamookla/speedtest"
+
+# --- Security / secrets ---
+# Encryption, credential managers, and certificate tooling for secrets workflows.
+brew "age"
+brew "bitwarden-cli"
+brew "gnupg"
+brew "keeper-commander"
+brew "keyring"
+brew "mkcert"
+brew "sops"
+
+# --- DevOps / Infra ---
+# Cloud, Kubernetes, IaC, and configuration-management tooling.
+brew "ansible"
+brew "ansible-lint"
+brew "awscli"
+brew "fluxcd/tap/flux"
+brew "hashicorp/tap/terraform"
+brew "helm"
+brew "kubectx"
+brew "kustomize"
+brew "minikube"
+brew "stern"
+brew "terraform-docs"
+brew "yamllint"
+
+# --- Languages / Toolchains ---
+# Runtimes, package managers, and language-specific build tools.
+brew "deno"
+brew "go"
+brew "go-task"
+brew "pyenv"
+brew "python@3.10"
+brew "python@3.11"
+brew "ruby"
+brew "uv"
+brew "virtualenv"
+
+# --- Networking / Diagnostics ---
+# Network probes, connectivity tests, and remote-access CLI utilities.
+brew "hudochenkov/sshpass/sshpass"
+brew "inetutils"
+brew "ipcalc"
+brew "iperf"
+brew "iperf3"
+brew "mtr"
+brew "netcat"
+brew "nmap"
+brew "putty"
+brew "teamookla/speedtest/speedtest"
+brew "tcptraceroute"
+brew "trippy"
+brew "w3m"
+brew "wget"
+
+# --- Utilities ---
+# General-purpose CLI helpers for docs, formatting, linting, and day-to-day tasks.
+brew "black"
+brew "commitlint"
+brew "coreutils"
+brew "d2"
+brew "docutils"
+brew "graphviz"
+brew "gnuplot"
+brew "htop"
+brew "hugo"
+brew "jq"
+brew "pandoc"
+brew "prettier"
+brew "shellcheck"
+brew "shfmt"
+brew "watch"
+brew "yq"

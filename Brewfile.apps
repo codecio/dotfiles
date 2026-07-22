@@ -9,11 +9,15 @@ cask "typora"
 # AI-first productivity assistant for Microsoft 365
 cask "microsoft-365-copilot"
 
+# Security
+# Password manager with autofill and secure vault
+cask "keeper-password-manager"
+
 # Communication
 # Team communication and collaboration software
 cask "slack"
-# Remote desktop client
-cask "microsoft-remote-desktop"
+# Microsoft Windows App (formerly Microsoft Remote Desktop)
+cask "windows-app"
 # Remote desktop
 cask "parsec"
 
@@ -46,11 +50,6 @@ cask "copilot-cli"
 cask "keystore-explorer"
 # JDK from the Eclipse Foundation (Adoptium)
 cask "temurin"
-# Development environment
-cask "vagrant"
-cask "vagrant-manager"
-# Virtualiser for x86 hardware
-cask "virtualbox"
 
 # Utilities
 # Web browser focusing on privacy

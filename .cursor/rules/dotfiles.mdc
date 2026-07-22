@@ -13,6 +13,7 @@ Personal + work dotfiles for `github.com/codecio/dotfiles`. Edit source under `h
 |------|------|
 | `home/` | Chezmoi source (`dot_foo` → `~/.foo`, `private_dot_ssh/` → `~/.ssh/`, `.tmpl` for templates) |
 | `Brewfile` | Core dotfiles-required CLI tools only |
+| `Brewfile.cli` | Daily CLI toolkit (cloud, k8s, langs, etc.) |
 | `Brewfile.apps` | GUI apps (Rectangle, Slack, Spotify, …) |
 | `Brewfile.archive` | Gitignored historical reference — do not resurrect or commit |
 | `Makefile` | Single entry point — `make help` lists all targets |
@@ -26,7 +27,8 @@ Personal + work dotfiles for `github.com/codecio/dotfiles`. Edit source under `h
 ## Workflows
 
 - Track new dotfile: `chezmoi add ~/.foo` or edit `home/` + `make apply`
-- Add CLI tool: edit `Brewfile` + `make brew-bundle`
+- Add dotfile-required CLI: edit `Brewfile` + `make brew-bundle`
+- Add daily CLI tool: edit `Brewfile.cli` + `make cli`
 - Add GUI app: edit `Brewfile.apps` + `make apps`
 - Apply changes: `make apply`
 - Full sync: `make sync`
@@ -38,7 +40,7 @@ Personal + work dotfiles for `github.com/codecio/dotfiles`. Edit source under `h
 - Commit `Brewfile.archive` (gitignored)
 - Add work hostnames, IPs, employer names, or fleet details to committed files (public repo)
 - Edit `~/.zshrc`, `~/.gitconfig`, or other live home files — edit `home/` source + `make apply`
-- Add user apps to `Brewfile` — only dotfile-setup tools belong there
+- Add daily CLI tools or GUI apps to `Brewfile` — use `Brewfile.cli` or `Brewfile.apps` instead
 
 ## Before commit
 
