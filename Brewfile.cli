@@ -6,6 +6,7 @@ tap "fluxcd/tap"
 tap "hashicorp/tap"
 tap "hudochenkov/sshpass"
 tap "teamookla/speedtest"
+tap "terraform-linters/tap"
 
 # --- Security / secrets ---
 # Encryption, credential managers, and certificate tooling for secrets workflows.
@@ -30,6 +31,7 @@ brew "kustomize"
 brew "minikube"
 brew "stern"
 brew "terraform-docs"
+cask "terraform-linters/tap/tflint"
 brew "yamllint"
 
 # --- Languages / Toolchains ---

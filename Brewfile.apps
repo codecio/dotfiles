@@ -31,7 +31,9 @@ cask "obs"
 
 # Dev tools
 # Write, edit, and chat about your code with AI
-cask "cursor"
+# no-binaries skips the `code` symlink whose xattr postflight triggers a
+# macOS Sequoia Gatekeeper/TCC prompt inside the signed app bundle.
+cask "cursor", args: { "no-binaries": true }
 # Open-source code editor
 cask "visual-studio-code"
 # App to build and share containerised applications and microservices
@@ -54,5 +56,7 @@ cask "temurin"
 # Utilities
 # Web browser focusing on privacy
 cask "brave-browser"
+# Web browser from Google
+cask "google-chrome"
 # Utilise mouse side navigation buttons
 cask "sensiblesidebuttons"
