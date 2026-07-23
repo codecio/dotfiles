@@ -26,8 +26,6 @@ cask "parsec"
 cask "spotify"
 # Open-source screen recorder built with web technology
 cask "kap"
-# Open-source software for live streaming and screen recording
-cask "obs"
 
 # Dev tools
 # Write, edit, and chat about your code with AI
@@ -42,16 +40,12 @@ cask "docker-desktop"
 cask "postman"
 # Universal database tool and SQL client
 cask "dbeaver-community"
-# Android SDK component
-cask "android-platform-tools"
 # Eclipse-based LDAP browser and directory client
 cask "apache-directory-studio"
 # Brings the power of Copilot coding agent directly to your terminal
 cask "copilot-cli"
 # GUI replacement for the Java command-line utilities keytool and jarsigner
 cask "keystore-explorer"
-# JDK from the Eclipse Foundation (Adoptium)
-cask "temurin"
 
 # Utilities
 # Web browser focusing on privacy

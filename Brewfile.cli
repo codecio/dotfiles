@@ -2,82 +2,126 @@
 # Install with: `make cli`
 # Core dotfile deps live in Brewfile; GUI apps in Brewfile.apps.
 
+# Flux CD official tap for GitOps tooling
 tap "fluxcd/tap"
+# HashiCorp official tap (Terraform, etc.)
 tap "hashicorp/tap"
+# sshpass tap for password-based SSH
 tap "hudochenkov/sshpass"
-tap "teamookla/speedtest"
+# Terraform linter tap (tflint)
 tap "terraform-linters/tap"
 
 # --- Security / secrets ---
 # Encryption, credential managers, and certificate tooling for secrets workflows.
+# Modern file encryption tool (used by SOPS)
 brew "age"
+# Bitwarden vault CLI (bw)
 brew "bitwarden-cli"
+# GnuPG / GPG for signing and encryption
 brew "gnupg"
+# Keeper vault CLI (companion to keeper-password-manager)
 brew "keeper-commander"
+# Python keyring library CLI (shared credential store)
 brew "keyring"
+# Locally-trusted TLS certs for development
 brew "mkcert"
+# Mozilla SOPS secret file encryption
 brew "sops"
 
 # --- DevOps / Infra ---
 # Cloud, Kubernetes, IaC, and configuration-management tooling.
+# Configuration management and orchestration
 brew "ansible"
+# Best-practice linter for Ansible playbooks
 brew "ansible-lint"
+# AWS command-line interface (v2)
 brew "awscli"
+# Flux CD CLI for GitOps workflows on Kubernetes
 brew "fluxcd/tap/flux"
+# Infrastructure-as-code tool
 brew "hashicorp/tap/terraform"
+# Kubernetes package manager
 brew "helm"
+# Fast context and namespace switching (kubectx / kubens)
 brew "kubectx"
+# Kubernetes native configuration management
 brew "kustomize"
+# Local Kubernetes cluster for testing
 brew "minikube"
+# Multi-pod / multi-container log tailing for Kubernetes
 brew "stern"
+# Auto-generate documentation from Terraform modules
 brew "terraform-docs"
+# Terraform linter
 cask "terraform-linters/tap/tflint"
+# YAML file linter
 brew "yamllint"
 
 # --- Languages / Toolchains ---
 # Runtimes, package managers, and language-specific build tools.
+# Modern JavaScript / TypeScript runtime
 brew "deno"
+# Go language toolchain
 brew "go"
+# Task runner / build tool for Go projects
 brew "go-task"
-brew "pyenv"
-brew "python@3.10"
-brew "python@3.11"
+# Ruby language runtime
 brew "ruby"
+# Fast Python package installer and resolver
 brew "uv"
-brew "virtualenv"
 
 # --- Networking / Diagnostics ---
 # Network probes, connectivity tests, and remote-access CLI utilities.
+# Password-based SSH for automation (legacy)
 brew "hudochenkov/sshpass/sshpass"
+# GNU network utilities (telnet, ftp, etc.)
 brew "inetutils"
+# Subnet math and network calculator
 brew "ipcalc"
-brew "iperf"
+# Network throughput measurement tool
 brew "iperf3"
+# Interactive traceroute + ping combined
 brew "mtr"
+# TCP/UDP swiss-army knife (nc)
 brew "netcat"
+# Network scanner and port discovery
 brew "nmap"
-brew "putty"
-brew "teamookla/speedtest/speedtest"
+# TCP-based traceroute
 brew "tcptraceroute"
+# Modern mtr replacement with better UI
 brew "trippy"
-brew "w3m"
+# Non-interactive HTTP/HTTPS downloader
 brew "wget"
 
 # --- Utilities ---
 # General-purpose CLI helpers for docs, formatting, linting, and day-to-day tasks.
-brew "black"
+# Conventional commit message linter
 brew "commitlint"
+# GNU coreutils (prefixed with g, e.g. gls, gdate)
 brew "coreutils"
+# Diagram-as-code, modern replacement for graphviz
 brew "d2"
+# reStructuredText documentation tools
 brew "docutils"
+# Graph visualization (dot language)
 brew "graphviz"
+# Command-line plotting utility
 brew "gnuplot"
+# Interactive process viewer
 brew "htop"
+# Fast static site generator
 brew "hugo"
+# JSON processor and query language
 brew "jq"
+# Universal document converter (md, pdf, docx, html, etc.)
 brew "pandoc"
+# Opinionated formatter for JS / TS / CSS / MD
 brew "prettier"
+# Shell script static analyzer
 brew "shellcheck"
+# Shell script formatter
 brew "shfmt"
+# Run a command repeatedly and watch its output
 brew "watch"
+# YAML processor (like jq for YAML)
 brew "yq"
