@@ -2,6 +2,8 @@
 
 Four Brewfiles: core toolchain, daily CLI toolkit, GUI apps, and a historical archive.
 
+> **See also:** [toolkit.md](toolkit.md) — per-tool descriptions, usage examples, and doc links for every entry in `Brewfile`, `Brewfile.cli`, and `Brewfile.apps`.
+
 ## Core (`Brewfile`)
 
 <details>
@@ -55,7 +57,7 @@ make apps
 
 - **Productivity:** Rectangle, Typora, Microsoft 365 Copilot
 - **Security:** Keeper Password Manager
-- **Communication:** Slack, Windows App, Parsec
+- **Communication:** Slack, Windows App
 - **Media:** Spotify, Kap, OBS
 - **Dev tools:** Cursor, VS Code, Docker Desktop, Postman, DBeaver, Android platform tools, etc.
 - **Utilities:** Brave Browser, SensibleSideButtons

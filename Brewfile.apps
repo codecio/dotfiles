@@ -18,8 +18,6 @@ cask "keeper-password-manager"
 cask "slack"
 # Microsoft Windows App (formerly Microsoft Remote Desktop)
 cask "windows-app"
-# Remote desktop
-cask "parsec"
 
 # Media
 # Music streaming service
@@ -50,7 +48,5 @@ cask "keystore-explorer"
 # Utilities
 # Web browser focusing on privacy
 cask "brave-browser"
-# Web browser from Google
-cask "google-chrome"
 # Utilise mouse side navigation buttons
 cask "sensiblesidebuttons"

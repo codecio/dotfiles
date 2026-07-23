@@ -70,6 +70,7 @@ Git identity is path-based (`includeIf` in `dot_gitconfig.tmpl`) — not prompte
 - [docs/shell.md](docs/shell.md) — shell tool config paths
 - [docs/chezmoi.md](docs/chezmoi.md) — profiles, apply, add files
 - [docs/brew.md](docs/brew.md) — Brewfile split (core, cli, apps, archive)
+- [docs/toolkit.md](docs/toolkit.md) — per-tool reference (purpose, usage, links)
 
 ## After scaffold (manual)
 

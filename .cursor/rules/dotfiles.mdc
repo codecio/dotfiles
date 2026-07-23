@@ -55,3 +55,4 @@ make apply   # verify chezmoi templates parse
 - `docs/chezmoi.md` — profiles, apply, add files
 - `docs/brew.md` — Brewfile split
 - `docs/shell.md` — zsh, Starship, fzf, tmux paths
+- `docs/toolkit.md` — per-tool reference (purpose, usage, links)
