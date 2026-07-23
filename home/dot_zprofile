@@ -3,3 +3,6 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
 elif [[ -x /usr/local/bin/brew ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
+
+# User-local binaries (age, sops, …) — before /usr/local/bin
+export PATH="$HOME/.local/bin:$PATH"

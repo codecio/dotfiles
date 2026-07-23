@@ -11,4 +11,5 @@ Cheat-sheets for the dotfiles repo. Each page uses collapsible sections for quic
 | [shell.md](shell.md) | zsh, Starship, fzf, tmux paths |
 | [chezmoi.md](chezmoi.md) | Profiles, apply, add files |
 | [brew.md](brew.md) | Core Brewfile vs apps vs archive |
+| [python.md](python.md) | Interpreters, uv tools, pip guard, venvs |
 | [toolkit.md](toolkit.md) | Per-tool reference — purpose, usage, doc links |

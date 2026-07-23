@@ -17,6 +17,8 @@ tap "terraform-linters/tap"
 brew "age"
 # Bitwarden vault CLI (bw)
 brew "bitwarden-cli"
+# Retrieve AWS credentials via Okta (Nike gimme-aws-creds)
+brew "gimme-aws-creds"
 # GnuPG / GPG for signing and encryption
 brew "gnupg"
 # Keeper vault CLI (companion to keeper-password-manager)

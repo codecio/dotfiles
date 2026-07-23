@@ -84,6 +84,12 @@ if command -v eza &>/dev/null; then
   "
 fi
 
+# --- Sourced files ---
+[ -f ~/.p4colors.sh ] && source ~/.p4colors.sh
+
 # --- zsh-syntax-highlighting (must be last) ---
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# Added by ark-sdk bootstrap: make go-installed binaries (e.g. ark CLI) available
+export PATH="$HOME/go/bin:$PATH"
