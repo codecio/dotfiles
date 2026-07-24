@@ -13,3 +13,4 @@ Cheat-sheets for the dotfiles repo. Each page uses collapsible sections for quic
 | [brew.md](brew.md) | Core Brewfile vs apps vs archive |
 | [python.md](python.md) | Interpreters, uv tools, pip guard, venvs |
 | [toolkit.md](toolkit.md) | Per-tool reference — purpose, usage, doc links |
+| [cursor-plugins.md](cursor-plugins.md) | Cursor plugins (pstack, cursor-team-kit, datadog, AWS) + personal skills — inventory & setup |
