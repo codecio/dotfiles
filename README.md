@@ -30,8 +30,11 @@ On an **existing machine** with tools already installed, bootstrap detects and s
 make brew-bundle        # re-sync core Brewfile without full bootstrap
 make apps               # install GUI apps from Brewfile.apps
 make cli                # install daily CLI toolkit from Brewfile.cli
+make ext                # sync VS Code + Cursor extensions from the Extfile set
 make apply              # apply dotfile changes only
 ```
+
+VS Code Settings Sync only reaches other VS Code installs — Microsoft restricts it to official builds, so Cursor can never join it. `make ext` keeps both editors in step instead. See [docs/editors.md](docs/editors.md).
 
 ## What's in this repo
 
@@ -40,12 +43,17 @@ make apply              # apply dotfile changes only
 | `Brewfile` | Dotfile setup | `make brew-bundle` (part of `make bootstrap`) |
 | `Brewfile.apps` | GUI casks | `make apps` |
 | `Brewfile.cli` | Daily CLI toolkit | `make cli` |
+| `Extfile` | Editor extensions for VS Code **and** Cursor | `make ext` |
+| `Extfile.vscode` | VS Code-only extensions | `make ext` |
+| `Extfile.cursor` | Cursor-only extensions | `make ext` |
 
 | Path | Purpose |
 |------|---------|
 | `Brewfile.archive` | Historical brew dump (local reference, gitignored) |
+| `Extfile.ignore` | Extensions installed locally but unreproducible — never installed |
 | `home/` | Chezmoi source tree |
 | `Makefile` | Task runner (`make help`) — bootstrap + daily ops |
+| `scripts/` | Helpers invoked by the Makefile |
 | `docs/` | Cheat-sheets and workflows |
 
 ## Machine profiles
@@ -70,6 +78,7 @@ Git identity is path-based (`includeIf` in `dot_gitconfig.tmpl`) — not prompte
 - [docs/shell.md](docs/shell.md) — shell tool config paths
 - [docs/chezmoi.md](docs/chezmoi.md) — profiles, apply, add files
 - [docs/brew.md](docs/brew.md) — Brewfile split (core, cli, apps, archive)
+- [docs/editors.md](docs/editors.md) — VS Code + Cursor extension sync
 - [docs/toolkit.md](docs/toolkit.md) — per-tool reference (purpose, usage, links)
 
 ## After scaffold (manual)

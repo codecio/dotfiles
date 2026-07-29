@@ -7,6 +7,9 @@
 # Historical brew dump — kept locally for reference, not committed
 Brewfile.archive
 
+# One-off research notes — local reference; durable conclusions get folded into docs/
+docs/research/
+
 # Local overrides
 *.local
 

@@ -11,6 +11,7 @@ Cheat-sheets for the dotfiles repo. Each page uses collapsible sections for quic
 | [shell.md](shell.md) | zsh, Starship, fzf, tmux paths |
 | [chezmoi.md](chezmoi.md) | Profiles, apply, add files |
 | [brew.md](brew.md) | Core Brewfile vs apps vs archive |
+| [editors.md](editors.md) | VS Code + Cursor extension sync (Extfile set) |
 | [python.md](python.md) | Interpreters, uv tools, pip guard, venvs |
 | [toolkit.md](toolkit.md) | Per-tool reference — purpose, usage, doc links |
 | [cursor-plugins.md](cursor-plugins.md) | Cursor plugins (pstack, cursor-team-kit, datadog, AWS) + personal skills — inventory & setup |
