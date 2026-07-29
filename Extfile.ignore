@@ -1,0 +1,16 @@
+# Deliberately untracked extensions — installed locally, never installed by `make ext`.
+# Listed here only so `make ext-diff` stops reporting them as drift.
+#
+# Use this for extensions that have been pulled from both the Microsoft
+# Marketplace and OpenVSX. They survive on machines that installed them before
+# removal, but cannot be reproduced on a fresh Mac — so they must not go in the
+# Extfile set, or `make bootstrap` would fail on a new machine.
+#
+# Uninstall these when you stop needing them; there is no way to get them back.
+
+# --- Unpublished from both registries ---
+# Run npm and package scripts from the file explorer (Cursor; gone from both registries)
+jeremyrajan.file-script-runner
+# Live Share extension pack, retired by Microsoft (Cursor; superseded by
+# ms-vsliveshare.vsliveshare, which is VS Code only — see Extfile.vscode)
+ms-vsliveshare.vsliveshare-pack

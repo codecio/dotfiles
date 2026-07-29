@@ -1,0 +1,23 @@
+# VS Code-only extensions — NOT installable in Cursor.
+# Install with: `make ext`
+# Shared extensions live in Extfile; Cursor equivalents in Extfile.cursor.
+#
+# Everything here is Microsoft-proprietary and published only to the Microsoft
+# Marketplace, which Microsoft's terms restrict to official VS Code builds.
+# Cursor ships Anysphere forks of the remote stack — see Extfile.cursor.
+
+# --- Remote development (Microsoft stack) ---
+# SSH remote development host (Cursor: anysphere.remote-ssh)
+ms-vscode-remote.remote-ssh
+# SSH config file editing, companion to remote-ssh
+ms-vscode-remote.remote-ssh-edit
+# Remote target explorer sidebar
+ms-vscode.remote-explorer
+
+# --- Copilot / Chat ---
+# Chat customization evaluation tooling (VS Code chat only)
+ms-vscode.vscode-chat-customizations-evaluations
+
+# --- Collaboration ---
+# Real-time collaborative editing (absent from OpenVSX, so VS Code only)
+ms-vsliveshare.vsliveshare

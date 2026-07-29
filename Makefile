@@ -36,6 +36,7 @@ RESET := \033[0m
 .PHONY: help \
         apply diff edit status sync lint \
         bootstrap upgrade reinit reset-baseline clean whoami apps cli \
+        ext ext-diff ext-dump ext-prune \
         xcode-clt brew brew-bundle chezmoi-init fzf-install tpm-install hooks-install
 
 ##@ Daily ops
@@ -112,6 +113,28 @@ apps: ## Install GUI apps from Brewfile.apps (Rectangle, Slack, Spotify, etc.)
 cli: ## Install daily CLI toolkit from Brewfile.cli
 	@printf "$(YELLOW)→ Running brew bundle (cli)...$(RESET)\n"
 	brew bundle --file=$(REPO)/Brewfile.cli
+
+##@ Editor extensions
+
+# Teaching note: VS Code Settings Sync only reaches other VS Code installs —
+# Microsoft restricts it to official builds, so Cursor can never join. The
+# Extfile set is the source of truth for both editors instead, following the
+# same shape as the Brewfile split: a shared baseline plus per-editor extras.
+
+ext: ## Install editor extensions into VS Code + Cursor from the Extfile set
+	@$(REPO)/scripts/ext.sh install
+
+ext-diff: ## Show extension drift between the Extfile set and both editors
+	@$(REPO)/scripts/ext.sh diff
+
+ext-dump: ## Append extensions installed by hand into the Extfile set
+	@$(REPO)/scripts/ext.sh dump
+
+# Teaching note: dry-run by default, like `brew bundle cleanup`. $(if …) expands
+# to 1 only when FORCE is non-empty, so `make ext-prune` previews and
+# `make ext-prune FORCE=1` actually uninstalls.
+ext-prune: ## Uninstall extensions missing from the Extfile set (dry-run; FORCE=1 applies)
+	@EXT_PRUNE_FORCE=$(if $(FORCE),1,0) $(REPO)/scripts/ext.sh prune
 
 ##@ Bootstrap sub-steps (rarely needed individually)
 

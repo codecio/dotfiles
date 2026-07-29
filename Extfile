@@ -1,0 +1,111 @@
+# Shared editor extensions — installed into BOTH VS Code and Cursor.
+# Install with: `make ext`
+# Editor-locked extensions live in Extfile.vscode and Extfile.cursor.
+#
+# Every ID here must resolve on both the Microsoft Marketplace (VS Code) and
+# OpenVSX (Cursor). If `make ext` reports an install failure, the extension is
+# missing from one registry — move it to the per-editor file instead.
+
+# --- Language support ---
+# Go toolchain, debugging, and language server
+golang.go
+# Python language support
+ms-python.python
+# Python debugger (debugpy)
+ms-python.debugpy
+# Python import sorting
+ms-python.isort
+# Python environment and interpreter management
+ms-python.vscode-python-envs
+# Django template syntax
+batisteo.vscode-django
+# Jinja template syntax
+wholroyd.jinja
+# PowerShell language support
+ms-vscode.powershell
+# Bash language server (completion, docs, linting)
+mads-hartmann.bash-ide-vscode
+# Cisco IOS / NX-OS config syntax
+jamiewoodio.cisco
+# XML tooling and formatting
+dotjoshjohnson.xml
+# JSON viewer and formatter
+zainchen.json
+
+# --- Notebooks ---
+# Jupyter notebook editing and kernels
+ms-toolsai.jupyter
+# Jupyter keymap parity with classic notebook
+ms-toolsai.jupyter-keymap
+# Jupyter output renderers (plots, widgets)
+ms-toolsai.jupyter-renderers
+# Jupyter cell tag editing
+ms-toolsai.vscode-jupyter-cell-tags
+# Jupyter slideshow / RISE-style presentation
+ms-toolsai.vscode-jupyter-slideshow
+
+# --- DevOps / Infra ---
+# Ansible playbook linting and syntax
+redhat.ansible
+# Shared Red Hat extension dependency (telemetry, common services)
+redhat.vscode-commons
+# YAML language server with schema validation
+redhat.vscode-yaml
+# Terraform / HCL language support
+hashicorp.terraform
+# Kubernetes manifests, cluster explorer, Helm
+ms-kubernetes-tools.vscode-kubernetes-tools
+# Docker CLI integration (official Docker extension)
+docker.docker
+# Dockerfile / compose authoring and container management
+ms-azuretools.vscode-docker
+# Container explorer and lifecycle management
+ms-azuretools.vscode-containers
+# Vagrantfile syntax highlighting
+marcostazi.vs-code-vagrantfile
+# SOPS-encrypted file editing (transparent decrypt/encrypt)
+signageos.signageos-vscode-sops
+
+# --- Git / GitHub ---
+# .gitignore template generation
+codezombiech.gitignore
+# GitHub Actions workflow authoring and run status
+github.vscode-github-actions
+# GitHub pull requests and issues in-editor
+github.vscode-pull-request-github
+# Git log, file history, and blame viewer
+donjayamanne.githistory
+
+# --- Formatting / Linting ---
+# Prettier formatter for JS / TS / CSS / MD / JSON
+esbenp.prettier-vscode
+# shfmt-based shell script formatting
+foxundermoon.shell-format
+# markdownlint rules and autofix
+davidanson.vscode-markdownlint
+# Spell checking for code and prose
+streetsidesoftware.code-spell-checker
+# Highlight and strip trailing whitespace
+shardulm94.trailing-spaces
+
+# --- Editing / Workflow ---
+# Markdown TOC, shortcuts, preview enhancements
+yzhang.markdown-all-in-one
+# Quick switching between project folders
+alefragnani.project-manager
+# Encode / decode text (base64, url, jwt, hash)
+mitchdenny.ecdc
+
+# --- Viewers / Display ---
+# CSV column colorization and query
+mechatroner.rainbow-csv
+# .env file syntax highlighting
+mikestead.dotenv
+# PDF preview in-editor
+tomoki1207.pdf
+# D2 diagram-as-code syntax and preview
+terrastruct.d2
+# Colorize indentation levels
+oderwat.indent-rainbow
+# File icon theme
+pkief.material-icon-theme

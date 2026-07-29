@@ -1,0 +1,19 @@
+# Cursor-only extensions — NOT installable in VS Code.
+# Install with: `make ext`
+# Shared extensions live in Extfile; VS Code equivalents in Extfile.vscode.
+#
+# Anysphere publishes these forks to OpenVSX to replace Microsoft-proprietary
+# extensions that Cursor cannot ship. They are deliberately not on the
+# Microsoft Marketplace, so VS Code keeps the ms-* originals instead.
+
+# --- Remote development (Anysphere forks) ---
+# SSH remote development (fork of ms-vscode-remote.remote-ssh)
+anysphere.remote-ssh
+# Dev container support (fork of ms-vscode-remote.remote-containers)
+anysphere.remote-containers
+# WSL remote development (fork of ms-vscode-remote.remote-wsl)
+anysphere.remote-wsl
+
+# --- Language servers ---
+# Python type checking (fork of Pylance, which is Microsoft-proprietary)
+anysphere.cursorpyright
