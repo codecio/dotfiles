@@ -50,14 +50,24 @@ apply: ## Push pending dotfile changes to live files
 	@printf "$(GREEN)✓ Applied.$(RESET) Run '$(CYAN)reload$(RESET)' to refresh your shell.\n"
 
 diff: ## Preview pending changes (no writes)
-	@chezmoi diff
+	@out=$$(chezmoi diff); \
+	if [ -z "$$out" ]; then \
+		printf "  $(GREEN)✓ no drift$(RESET)\n"; \
+	else \
+		printf "%s\n" "$$out"; \
+	fi
 
 edit: ## Edit a source file by destination path (make edit FILE=~/.zshrc)
 	$(if $(FILE),,$(error FILE is required, e.g. make edit FILE=~/.zshrc))
 	@chezmoi edit $(FILE)
 
 status: ## Show drift between repo and live
-	@chezmoi status
+	@out=$$(chezmoi status); \
+	if [ -z "$$out" ]; then \
+		printf "  $(GREEN)✓ no drift$(RESET)\n"; \
+	else \
+		printf "%s\n" "$$out"; \
+	fi
 
 sync: reinit reset-baseline apply lint ## Full re-sync: regen chezmoi config, reset baseline, apply, lint
 	@printf "$(GREEN)✓ Sync complete!$(RESET) Run '$(CYAN)reload$(RESET)' in your shell.\n"
