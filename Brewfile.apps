@@ -32,6 +32,8 @@ cask "kap"
 cask "cursor", args: { "no-binaries": true }
 # Open-source code editor
 cask "visual-studio-code"
+# Anthropic Claude desktop chat app
+cask "claude"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
 # Collaboration platform for API development

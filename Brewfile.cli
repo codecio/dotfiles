@@ -97,6 +97,8 @@ brew "wget"
 
 # --- Utilities ---
 # General-purpose CLI helpers for docs, formatting, linting, and day-to-day tasks.
+# Anthropic Claude Code agentic coding CLI
+cask "claude-code"
 # Conventional commit message linter
 brew "commitlint"
 # GNU coreutils (prefixed with g, e.g. gls, gdate)
