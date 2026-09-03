@@ -20,6 +20,8 @@ export PATH=/usr/local/sbin:$PATH
 
 # --- Aliases ---
 alias ll='ls -lhA'
+# +noall must stay before +answer; reversed, it clears the answer section too
+alias digs='dig +noall +answer'
 alias whatmypub='dig +short @ns1-1.akamaitech.net ANY whoami.akamai.net'
 alias brewup='brew update && brew upgrade && brew cleanup'
 

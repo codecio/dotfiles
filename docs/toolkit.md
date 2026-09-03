@@ -421,6 +421,16 @@ Docs: https://docs.astral.sh/uv/
 
 ### Networking / Diagnostics
 
+#### `doggo`
+Modern DNS client — colorized table with TTLs by default, JSON for scripting.
+```bash
+doggo chi-file01.example.com
+doggo MX github.com @9.9.9.9
+doggo example.com --json | jq '.responses[0].answers[].address'
+```
+
+Docs: https://github.com/mr-karan/doggo
+
 #### `sshpass`
 Non-interactive SSH with password auth — legacy automation only; prefer keys.
 ```bash

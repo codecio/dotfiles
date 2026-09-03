@@ -74,6 +74,8 @@ brew "uv"
 
 # --- Networking / Diagnostics ---
 # Network probes, connectivity tests, and remote-access CLI utilities.
+# Modern DNS client with colorized output and JSON support
+brew "doggo"
 # Password-based SSH for automation (legacy)
 brew "hudochenkov/sshpass/sshpass"
 # GNU network utilities (telnet, ftp, etc.)
