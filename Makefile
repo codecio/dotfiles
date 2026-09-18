@@ -81,7 +81,7 @@ lint: ## Run pre-commit on all files
 # bootstrap chains every setup step; each step is also runnable on its own
 # (e.g. `make brew-bundle` to re-bundle without re-installing brew).
 
-bootstrap: xcode-clt brew brew-bundle chezmoi-init apply fzf-install tpm-install hooks-install ## Full first-time setup on a fresh Mac
+bootstrap: xcode-clt brew brew-bundle chezmoi-init apply tpm-install hooks-install ## Full first-time setup on a fresh Mac
 	@printf "$(GREEN)✓ Bootstrap complete!$(RESET) Open a new terminal tab to pick up shell changes.\n"
 
 upgrade: ## Upgrade brew packages + refresh pre-commit hooks (slow)
@@ -182,14 +182,10 @@ chezmoi-init: brew-bundle ## Initial chezmoi setup (one-time; use `reinit` after
 		chezmoi init --source="$(SOURCE)"; \
 	fi
 
-fzf-install: brew-bundle ## Install fzf shell key bindings (Ctrl+T, Ctrl+R, Alt+C)
+fzf-install: ## No-op: fzf bindings are chezmoi-managed (~/.config/fzf/fzf.zsh)
+	@printf "$(GREEN)✓ fzf is applied from home/dot_config/fzf/fzf.zsh$(RESET)\n"
 	@if [[ -f "$(HOME)/.fzf.zsh" ]]; then \
-		printf "$(GREEN)✓ fzf key bindings already installed$(RESET)\n"; \
-	elif command -v brew &>/dev/null && brew --prefix fzf &>/dev/null; then \
-		printf "$(YELLOW)→ Installing fzf key bindings...$(RESET)\n"; \
-		"$(shell brew --prefix 2>/dev/null)/opt/fzf/install" --key-bindings --completion --no-update-rc --no-bash --no-fish; \
-	else \
-		printf "$(YELLOW)→ fzf not installed — skipping key bindings$(RESET)\n"; \
+		printf "$(YELLOW)→ leftover ~/.fzf.zsh from old fzf/install — not sourced; delete if unused$(RESET)\n"; \
 	fi
 
 tpm-install: ## Install tmux plugin manager (rare — only on fresh Mac)

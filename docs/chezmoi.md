@@ -36,9 +36,9 @@ sourceDir = "~/dotfiles"
 
 Because `sourceDir` is baked in, plain `chezmoi apply` works after init — no need to pass `--source` every time.
 
-If an older `chezmoi.toml` still has `[data] machine = "home"` or `"work"`, that key is leftover and unused. Safe to delete by hand, or leave it.
+Older configs may still have unused `[data] machine`. Harmless. `make reinit` rewrites `chezmoi.toml` from the template.
 
-Windows is a **different apply path** (second chezmoi source or a second repo), not a value of that old `machine` field.
+Windows is a **different apply path** (second chezmoi source or a second repo), not a chezmoi data field.
 
 </details>
 

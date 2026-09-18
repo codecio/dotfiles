@@ -26,7 +26,7 @@ Work-machine dotfiles for `github.com/codecio/dotfiles` (macOS now; Windows appl
 ## Conventions
 
 - **Git identity:** path-based via `includeIf` in `dot_gitconfig.tmpl` — `~/development/*` → work, `~/home/*` and `~/dotfiles` → personal. Independent of OS. Do not collapse to a single identity.
-- **Chezmoi:** no home/work machine prompt. `sourceDir` is `~/dotfiles`. Windows is a separate apply path, not a chezmoi `machine` enum.
+- **Chezmoi:** no home/work prompt. `sourceDir` is `~/dotfiles`. Windows is a separate apply path.
 - **Editor extensions:** the `Extfile` set is the source of truth. VS Code Settings Sync only reaches other VS Code installs (Microsoft restricts it to official builds), and VS Code uses the Microsoft Marketplace while Cursor uses OpenVSX — so parity is a shared baseline plus a deliberate per-editor delta, never one list.
 
 ## Workflows
@@ -44,7 +44,7 @@ Work-machine dotfiles for `github.com/codecio/dotfiles` (macOS now; Windows appl
 
 ## Do NOT
 
-- Reintroduce SOPS/age/Bitwarden — removed intentionally; discuss before adding encryption
+- Put SOPS/age/Bitwarden into chezmoi apply or core `Brewfile` — repo files stay plaintext; those CLIs may live in `Brewfile.cli` as optional tools only
 - Commit `Brewfile.archive` (gitignored)
 - Add work hostnames, IPs, employer names, or fleet details to committed files (public repo)
 - Edit `~/.zshrc`, `~/.gitconfig`, or other live home files — edit `home/` source + `make apply`
@@ -61,8 +61,9 @@ make apply   # verify chezmoi templates parse
 ## Docs
 
 - `docs/bootstrap.md` — fresh Mac setup
-- `docs/chezmoi.md` — profiles, apply, add files
+- `docs/chezmoi.md` — source tree, init, git identity, apply
 - `docs/brew.md` — Brewfile split
 - `docs/editors.md` — VS Code + Cursor extension sync
 - `docs/shell.md` — zsh, Starship, fzf, tmux paths
-- `docs/toolkit.md` — per-tool reference (purpose, usage, links)
+- `docs/python.md` — interpreters, uv, pip guard
+- `docs/cursor-plugins.md` — Cursor plugins + personal skills

@@ -13,7 +13,7 @@ Config paths in the chezmoi `home/` tree and live destinations after `chezmoi ap
 | `home/dot_zprofile` | `~/.zprofile` |
 | `home/dot_zshenv` | `~/.zshenv` |
 
-**Prompt:** Starship (`eval "$(starship init zsh)"`) — powerlevel10k removed.
+**Prompt:** Starship (`eval "$(starship init zsh)"`).
 
 **Hooks:** atuin, zoxide, direnv — each gated on `command -v`. fastfetch is **not** auto-run.
 
@@ -51,9 +51,7 @@ Minimal config with character prompt symbols. Extend as needed.
 |-------------|-------------|
 | `home/dot_config/fzf/fzf.zsh` | `~/.config/fzf/fzf.zsh` |
 
-`dot_zshrc` sources **only** `~/.config/fzf/fzf.zsh` (not `~/.fzf.zsh`). That file adds fzf to `PATH`, loads completion, and installs key bindings from the Homebrew fzf package.
-
-Bootstrap may still run `fzf/install` if `~/.fzf.zsh` is missing from a prior install — the chezmoi-managed config does not depend on it.
+`dot_zshrc` sources **only** `~/.config/fzf/fzf.zsh` (not `~/.fzf.zsh`). That file adds fzf to `PATH`, loads completion, and installs key bindings from the Homebrew fzf package. An old `~/.fzf.zsh` from `fzf/install` is unused and can be deleted.
 
 **Appearance** (`FZF_DEFAULT_OPTS` in `dot_zshrc`): Tokyo Night palette, `--border=rounded`.
 

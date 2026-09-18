@@ -1,66 +1,39 @@
 # dotfiles
 
-Personal chezmoi-managed dotfiles — Ghostty, zsh, Starship, tmux, git, and pre-commit secret scanning.
+Chezmoi-managed **macOS** dotfiles for work machines: Ghostty, zsh, Starship, tmux, git, Homebrew, editor extensions.
 
-## Makefile
-
-Task runner at the repo root — no extra install (`make` ships with Xcode CLT). Run `make help` for the full list.
-
-```bash
-make bootstrap          # fresh machine — full first-time setup
-make diff               # preview pending dotfile changes
-make apply              # apply dotfile changes
-make lint               # pre-commit on all files
-make upgrade            # brew upgrade + pre-commit autoupdate
-```
-
-Parameterized targets: `make edit FILE=~/.zshrc`.
+Windows 11 is a later apply path (separate tree or repo). Git identity is path-based and independent of OS — see [docs/chezmoi.md](docs/chezmoi.md).
 
 ## Quick start
 
 ```bash
 git clone https://github.com/codecio/dotfiles ~/dotfiles
 cd ~/dotfiles
-make bootstrap
+make bootstrap          # Xcode CLT, Homebrew, core Brewfile, chezmoi apply, TPM, hooks
+make help               # all targets
 ```
 
-On an **existing machine** with tools already installed, bootstrap detects and skips what's present. See [docs/bootstrap.md](docs/bootstrap.md).
+On a machine that already has brew and git: `make brew-bundle`, `make apply`, plus `make cli` / `make apps` / `make ext` as needed. Details: [docs/bootstrap.md](docs/bootstrap.md).
 
-```bash
-make brew-bundle        # re-sync core Brewfile without full bootstrap
-make apps               # install GUI apps from Brewfile.apps
-make cli                # install daily CLI toolkit from Brewfile.cli
-make ext                # sync VS Code + Cursor extensions from the Extfile set
-make apply              # apply dotfile changes only
-```
+## Layout
 
-VS Code Settings Sync only reaches other VS Code installs — Microsoft restricts it to official builds, so Cursor can never join it. `make ext` keeps both editors in step instead. See [docs/editors.md](docs/editors.md).
+| Path | Role |
+|------|------|
+| `home/` | Chezmoi source (`.chezmoiroot` is `home`). `dot_zshrc` → `~/.zshrc`. Edit here, never live `~/.foo`. |
+| `Makefile` | Single entry point (`make help`) |
+| `Brewfile` | Tools the dotfiles themselves need — `make brew-bundle` |
+| `Brewfile.cli` | Daily CLI — `make cli` |
+| `Brewfile.apps` | GUI casks — `make apps` |
+| `Brewfile.archive` | Gitignored historical dump — do not commit |
+| `Extfile*` | VS Code + Cursor extensions — `make ext` |
+| `scripts/` | Makefile helpers (`ext.sh`) |
+| `docs/` | [Index](docs/README.md) |
 
-## What's in this repo
+Machine-local shell extras (not in git): `~/.zshenv.local`, `~/.zshrc.local`.
 
-| File | Contents | Install |
-|------|----------|---------|
-| `Brewfile` | Dotfile setup | `make brew-bundle` (part of `make bootstrap`) |
-| `Brewfile.apps` | GUI casks | `make apps` |
-| `Brewfile.cli` | Daily CLI toolkit | `make cli` |
-| `Extfile` | Editor extensions for VS Code **and** Cursor | `make ext` |
-| `Extfile.vscode` | VS Code-only extensions | `make ext` |
-| `Extfile.cursor` | Cursor-only extensions | `make ext` |
+## Git identity
 
-| Path | Purpose |
-|------|---------|
-| `Brewfile.archive` | Historical brew dump (local reference, gitignored) |
-| `Extfile.ignore` | Extensions installed locally but unreproducible — never installed |
-| `home/` | Chezmoi source tree |
-| `Makefile` | Task runner (`make help`) — bootstrap + daily ops |
-| `scripts/` | Helpers invoked by the Makefile |
-| `docs/` | Cheat-sheets and workflows |
-
-## Machine vs git identity vs Windows
-
-This repo applies to **macOS** via chezmoi `home/`. There is no home/work prompt at `chezmoi init`. `sourceDir` is `~/dotfiles`.
-
-**Git still has two identities**, by directory, not by laptop:
+By directory, not by laptop:
 
 | Path | Identity |
 |------|----------|
@@ -68,22 +41,8 @@ This repo applies to **macOS** via chezmoi `home/`. There is no home/work prompt
 | `~/home/` and `~/dotfiles/` | personal (`~/.gitconfig.personal`) |
 | everywhere else | personal default in `~/.gitconfig` |
 
-Windows 11 is a later apply path (separate tree or repo). The same dual git idea can map to Windows clones of those folders. See [docs/chezmoi.md](docs/chezmoi.md).
-
 ## Docs
 
-- [docs/README.md](docs/README.md) — index
-- [docs/bootstrap.md](docs/bootstrap.md) — fresh Mac vs existing machine
-- [docs/shell.md](docs/shell.md) — shell tool config paths
-- [docs/chezmoi.md](docs/chezmoi.md) — profiles, apply, add files
-- [docs/brew.md](docs/brew.md) — Brewfile split (core, cli, apps, archive)
-- [docs/editors.md](docs/editors.md) — VS Code + Cursor extension sync
-- [docs/toolkit.md](docs/toolkit.md) — per-tool reference (purpose, usage, links)
+Full index: [docs/README.md](docs/README.md).
 
-## After scaffold (manual)
-
-```bash
-pre-commit install && pre-commit run --all-files
-gh auth login
-atuin register
-```
+After bootstrap: `gh auth login`, `atuin register`, and in tmux `prefix + I` for TPM plugins.

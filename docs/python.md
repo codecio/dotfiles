@@ -21,7 +21,7 @@ Add a recurring CLI to your Brewfile when you rework it (`Brewfile` or `Brewfile
 
 `home/dot_config/pip/pip.conf` sets `require-virtualenv = true`. Bare `pip3 install` outside a venv is refused; `uvx`, brew-managed CLIs, and `pip install` inside an activated venv still work.
 
-`~/.local/bin` stays on PATH via `dot_zprofile` (for user-installed binaries like age/sops).
+`~/.local/bin` stays on PATH via `dot_zprofile` (curl-installed CLIs such as `agent` / `cursor-agent`). Extra PATH entries for this Mac only go in `~/.zshenv.local`.
 
 ## Do not
 
