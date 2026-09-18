@@ -56,20 +56,19 @@ VS Code Settings Sync only reaches other VS Code installs — Microsoft restrict
 | `scripts/` | Helpers invoked by the Makefile |
 | `docs/` | Cheat-sheets and workflows |
 
-## Machine profiles
+## Machine vs git identity vs Windows
 
-Chezmoi prompts for one of two profiles on first init (`home/.chezmoi.toml.tmpl`):
+This repo applies to **macOS** via chezmoi `home/`. There is no home/work prompt at `chezmoi init`. `sourceDir` is `~/dotfiles`.
 
-| ID | Machine | OS |
-|----|---------|-----|
-| `home` | Personal Mac | darwin |
-| `work` | Work Mac | darwin |
+**Git still has two identities**, by directory, not by laptop:
 
-Windows is handled separately by a future `dotfiles-windows` repo — this tree is Mac/Linux/WSL-focused.
+| Path | Identity |
+|------|----------|
+| `~/development/` | work (`~/.gitconfig.work`) |
+| `~/home/` and `~/dotfiles/` | personal (`~/.gitconfig.personal`) |
+| everywhere else | personal default in `~/.gitconfig` |
 
-Init also sets `sourceDir = ~/dotfiles`, so `chezmoi apply` works without `--source` after bootstrap.
-
-Git identity is path-based (`includeIf` in `dot_gitconfig.tmpl`) — not prompted by chezmoi. See [docs/chezmoi.md](docs/chezmoi.md).
+Windows 11 is a later apply path (separate tree or repo). The same dual git idea can map to Windows clones of those folders. See [docs/chezmoi.md](docs/chezmoi.md).
 
 ## Docs
 

@@ -51,7 +51,7 @@ make apply            # apply dotfile changes without full bootstrap
 | `xcode-clt` | Verify Xcode CLT; prompt install if missing |
 | `brew` | Install Homebrew if missing |
 | `brew-bundle` | `brew bundle --file=~/dotfiles/Brewfile` |
-| `chezmoi-init` | `chezmoi init --source=~/dotfiles/home` (prompts for machine profile) |
+| `chezmoi-init` | `chezmoi init --source=~/dotfiles/home` |
 | `apply` | `chezmoi diff` + `chezmoi apply` |
 | `fzf-install` | fzf key bindings → `~/.fzf.zsh` |
 | `tpm-install` | Clone TPM to `~/.tmux/plugins/tpm` |

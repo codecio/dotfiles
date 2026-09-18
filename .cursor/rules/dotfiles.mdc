@@ -5,7 +5,7 @@ alwaysApply: true
 
 # dotfiles (chezmoi-managed macOS)
 
-Personal + work dotfiles for `github.com/codecio/dotfiles`. Edit source under `home/`, never live `~/.foo` files.
+Work-machine dotfiles for `github.com/codecio/dotfiles` (macOS now; Windows apply later). Edit source under `home/`, never live `~/.foo` files.
 
 ## Architecture
 
@@ -25,8 +25,8 @@ Personal + work dotfiles for `github.com/codecio/dotfiles`. Edit source under `h
 
 ## Conventions
 
-- **Git identity:** path-based via `includeIf` in `dot_gitconfig.tmpl` — `~/development/*` → work, `~/home/*` and `~/dotfiles` → personal
-- **Machine profile:** `home` or `work`, prompted once at `chezmoi init` (`home/.chezmoi.toml.tmpl`)
+- **Git identity:** path-based via `includeIf` in `dot_gitconfig.tmpl` — `~/development/*` → work, `~/home/*` and `~/dotfiles` → personal. Independent of OS. Do not collapse to a single identity.
+- **Chezmoi:** no home/work machine prompt. `sourceDir` is `~/dotfiles`. Windows is a separate apply path, not a chezmoi `machine` enum.
 - **Editor extensions:** the `Extfile` set is the source of truth. VS Code Settings Sync only reaches other VS Code installs (Microsoft restricts it to official builds), and VS Code uses the Microsoft Marketplace while Cursor uses OpenVSX — so parity is a shared baseline plus a deliberate per-editor delta, never one list.
 
 ## Workflows

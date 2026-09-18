@@ -1,13 +1,18 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == *$(brew --prefix)/opt/fzf/bin* ]]; then
-  PATH="${PATH:+${PATH}:}$(brew --prefix)/opt/fzf/bin"
+# HOMEBREW_PREFIX comes from brew shellenv in ~/.zprofile.
+if [[ -n ${HOMEBREW_PREFIX:-} && ! "$PATH" == *$HOMEBREW_PREFIX/opt/fzf/bin* ]]; then
+  PATH="${PATH:+${PATH}:}$HOMEBREW_PREFIX/opt/fzf/bin"
 fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "$(brew --prefix)/opt/fzf/shell/completion.zsh" 2> /dev/null
+if [[ $- == *i* && -n ${HOMEBREW_PREFIX:-} && -f $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh ]]; then
+  source "$HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh"
+fi
 
 # Key bindings
 # ------------
-source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
+if [[ -n ${HOMEBREW_PREFIX:-} && -f $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh ]]; then
+  source "$HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh"
+fi

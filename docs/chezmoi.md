@@ -20,18 +20,12 @@ Edit files in `~/dotfiles/home/` (or use `chezmoi edit ~/.zshrc` to open the sou
 
 </details>
 
-## Machine profiles
+## Init config
 
 <details>
-<summary>home, work</summary>
+<summary>sourceDir, no home/work prompt</summary>
 
-On first `chezmoi init`, `home/.chezmoi.toml.tmpl` prompts once for:
-
-| Field | Prompt |
-|-------|--------|
-| `machine` | Profile ID — one of `home`, `work` |
-
-The generated `~/.config/chezmoi/chezmoi.toml` also sets:
+`home/.chezmoi.toml.tmpl` writes `~/.config/chezmoi/chezmoi.toml` on first init. It does **not** ask home vs work. Hardware is work-only (this Mac now; Windows later). Git identity is a separate path-based system — see [Git identity](#git-identity).
 
 ```toml
 sourceDir = "~/dotfiles"
@@ -42,7 +36,9 @@ sourceDir = "~/dotfiles"
 
 Because `sourceDir` is baked in, plain `chezmoi apply` works after init — no need to pass `--source` every time.
 
-Git identity is **not** prompted here; see [Git identity](#git-identity) below.
+If an older `chezmoi.toml` still has `[data] machine = "home"` or `"work"`, that key is leftover and unused. Safe to delete by hand, or leave it.
+
+Windows is a **different apply path** (second chezmoi source or a second repo), not a value of that old `machine` field.
 
 </details>
 

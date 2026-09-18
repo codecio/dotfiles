@@ -15,9 +15,15 @@ Config paths in the chezmoi `home/` tree and live destinations after `chezmoi ap
 
 **Prompt:** Starship (`eval "$(starship init zsh)"`) — powerlevel10k removed.
 
-**Hooks:** atuin, zoxide, direnv (always). fastfetch is **not** auto-run — invoke manually with `fastfetch`.
+**Hooks:** atuin, zoxide, direnv — each gated on `command -v`. fastfetch is **not** auto-run.
 
-**Paths:** syntax-highlighting and terraform completion use `$(brew --prefix)`.
+**Homebrew prefix:** login shells get `HOMEBREW_PREFIX` from `brew shellenv` in `~/.zprofile` (ARM `/opt/homebrew` or Intel `/usr/local`). `dot_zshrc` and `fzf.zsh` use that variable. They do not call `brew --prefix` on every interactive start.
+
+**Completions:** `compinit -C` reuses `~/.zcompdump` when it is younger than 24 hours. `make clean` deletes the dump so the next shell rebuilds it. `zsh-syntax-highlighting` is sourced last, only if the file exists.
+
+**Cursor Agent:** do **not** put `eval "$(~/.local/bin/agent shell-integration zsh)"` in `.zshrc` or `.zprofile`. That script runs `agent create-chat` (network, ~1.4s) on every new TTY and can `exec agent record`. Keep `~/.local/bin` on PATH. Use Cursor's own terminal integration inside the IDE.
+
+**Machine-local (not in git):** `~/.zshenv.local` for PATH extras (Go/`ark`). `~/.zshrc.local` for interactive extras (Perforce `p4colors`). Shared `dot_zshrc` / `dot_zshenv` source those files if present.
 
 **SSH:** no wrapper needed. Ghostty is configured with `term = xterm-256color` so the universal terminfo entry is used everywhere (local + remote). See `home/dot_config/ghostty/config` for the rationale (heterogeneous remote SSH targets where `xterm-ghostty` terminfo isn't available).
 

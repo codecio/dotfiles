@@ -113,8 +113,8 @@ clean: ## Remove stale shell caches (zcompdump, etc.)
 	@rm -f ~/.zcompdump* 2>/dev/null || true
 	@printf "$(GREEN)✓ Caches cleaned$(RESET)\n"
 
-whoami: ## Show active chezmoi machine profile
-	@chezmoi data machine
+whoami: ## Show chezmoi OS/arch (this tree is macOS)
+	@chezmoi execute-template '{{ .chezmoi.os }}/{{ .chezmoi.arch }}'; echo
 
 apps: ## Install GUI apps from Brewfile.apps (Rectangle, Slack, Spotify, etc.)
 	@printf "$(YELLOW)→ Running brew bundle (apps)...$(RESET)\n"
@@ -178,7 +178,7 @@ chezmoi-init: brew-bundle ## Initial chezmoi setup (one-time; use `reinit` after
 	@if [[ -f "$(HOME)/.config/chezmoi/chezmoi.toml" ]]; then \
 		printf "$(GREEN)✓ chezmoi already initialized$(RESET)\n"; \
 	else \
-		printf "$(YELLOW)→ Initializing chezmoi (machine profile prompt)...$(RESET)\n"; \
+		printf "$(YELLOW)→ Initializing chezmoi...$(RESET)\n"; \
 		chezmoi init --source="$(SOURCE)"; \
 	fi
 

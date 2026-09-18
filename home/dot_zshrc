@@ -16,7 +16,12 @@ setopt EXTENDED_HISTORY
 
 # --- Environment ---
 export CLICOLOR=1
-export PATH=/usr/local/sbin:$PATH
+[[ -d /usr/local/sbin ]] && export PATH=/usr/local/sbin:$PATH
+
+# Login shells get this from brew shellenv in ~/.zprofile. Non-login fallback.
+if [[ -z ${HOMEBREW_PREFIX:-} ]] && command -v brew &>/dev/null; then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+fi
 
 # --- Aliases ---
 alias ll='ls -lhA'
@@ -39,24 +44,32 @@ logout() { sudo launchctl bootout user/"$(id -u "$1")"; }
 reload() { exec zsh -l; }
 
 # --- Prompt ---
-eval "$(starship init zsh)"
+command -v starship &>/dev/null && eval "$(starship init zsh)"
 
 # --- Shell integrations ---
+# Do not eval "$(~/.local/bin/agent shell-integration zsh)" here.
+# That script calls `agent create-chat` (~1.4s network) on every new TTY.
 command -v atuin  &>/dev/null && eval "$(atuin init zsh)"
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
-eval "$(direnv hook zsh)"
+command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 
 # --- Completions ---
 autoload -U +X bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+_zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+if [[ -f $_zcompdump ]] && (( $(date +%s) - $(stat -f %m -- "$_zcompdump") < 86400 )); then
+  compinit -C
+else
+  compinit
+fi
 
-if [[ -x "$(brew --prefix)/bin/terraform" ]]; then
-  complete -o nospace -C "$(brew --prefix)/bin/terraform" terraform
+if [[ -n ${HOMEBREW_PREFIX:-} && -x "$HOMEBREW_PREFIX/bin/terraform" ]]; then
+  complete -o nospace -C "$HOMEBREW_PREFIX/bin/terraform" terraform
 fi
 
 # --- fzf ---
 [ -f ~/.config/fzf/fzf.zsh ] && source ~/.config/fzf/fzf.zsh
-bindkey "ç" fzf-cd-widget   # ALT-C fallback when Option is not Meta
+(( $+widgets[fzf-cd-widget] )) && bindkey "ç" fzf-cd-widget   # ALT-C fallback when Option is not Meta
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 --color=fg:#c0caf5,bg:#1a1b26,fg+:#c0caf5,bg+:#292e42,hl:#3d59a1,hl+:#7aa2f7,info:#737aa2,marker:#bb9af7,prompt:#7dcfff,spinner:#7dcfff,pointer:#7dcfff,header:#9ece6a,border:#565f89,label:#a9b1d6,query:#c0caf5,selected-bg:#33467c \
@@ -86,12 +99,12 @@ if command -v eza &>/dev/null; then
   "
 fi
 
-# --- Sourced files ---
-[ -f ~/.p4colors.sh ] && source ~/.p4colors.sh
+# Machine-local interactive bits (p4colors, extra aliases). Not in this repo.
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # --- zsh-syntax-highlighting (must be last) ---
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-# Added by ark-sdk bootstrap: make go-installed binaries (e.g. ark CLI) available
-export PATH="$HOME/go/bin:$PATH"
+_zsh_hl="${HOMEBREW_PREFIX:-}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [[ -f $_zsh_hl ]]; then
+  ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+  source "$_zsh_hl"
+fi

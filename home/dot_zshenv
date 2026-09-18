@@ -1,1 +1,2 @@
-# Managed by chezmoi — extend with machine-local overrides in ~/.zshenv.local if needed
+# Managed by chezmoi — machine-local env (PATH extras) lives in ~/.zshenv.local
+[ -f ~/.zshenv.local ] && source ~/.zshenv.local
