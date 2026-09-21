@@ -4,7 +4,7 @@
 # Use this for extensions that have been pulled from both the Microsoft
 # Marketplace and OpenVSX. They survive on machines that installed them before
 # removal, but cannot be reproduced on a fresh Mac — so they must not go in the
-# Extfile set, or `make bootstrap` would fail on a new machine.
+# Extfile set, or `make ext` fails on a fresh Mac.
 #
 # Uninstall these when you stop needing them; there is no way to get them back.
 

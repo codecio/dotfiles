@@ -13,7 +13,7 @@ Chezmoi maps files under `home/` to your home directory:
 |----------------|-------------|---------|
 | `dot_zshrc` | `~/.zshrc` | `dot_` → `.` at the front of the basename |
 | `dot_config/fzf/fzf.zsh` | `~/.config/fzf/fzf.zsh` | `dot_config/` → `.config/` |
-| `private_dot_ssh/config.tmpl` | `~/.ssh/config` | `private_` → private (mode 600) |
+| `private_dot_ssh/private_config.tmpl` | `~/.ssh/config` | directory `private_` → `~/.ssh` mode 700; file `private_` → mode 600 |
 | `*.tmpl` | rendered on apply | Go templates; `.tmpl` suffix stripped |
 
 Edit files in `~/dotfiles/home/` (or use `chezmoi edit ~/.zshrc` to open the source path).
@@ -60,6 +60,8 @@ Trailing slashes on `gitdir:` paths matter — they mean “this directory and e
 
 Edit the hardcoded values in `dot_gitconfig.tmpl`, `dot_gitconfig.personal`, and `dot_gitconfig.work` directly; no chezmoi template variables for name or email. Use placeholders like `<work-name>` / `<work-email>` in docs; real values live only in the gitconfig source files.
 
+`dot_gitconfig.tmpl` also sets `core.excludesfile` to `~/.gitignore_global` (source: `home/dot_gitignore_global`).
+
 </details>
 
 ## Common commands
@@ -97,11 +99,12 @@ chezmoi add ~/.some-config
 ## Templates
 
 <details>
-<summary>dot_gitconfig.tmpl, private_dot_ssh/config.tmpl</summary>
+<summary>dot_gitconfig.tmpl, private_dot_ssh/private_config.tmpl</summary>
 
 | Source | Notes |
 |--------|-------|
 | `home/dot_gitconfig.tmpl` | Default git config + `includeIf` rules; includes `.personal` / `.work` fragments |
-| `home/private_dot_ssh/config.tmpl` | Static sanitized `Host *` defaults |
+| `home/dot_gitignore_global` | Global ignore patterns via `core.excludesfile` |
+| `home/private_dot_ssh/private_config.tmpl` | Static sanitized `Host *` defaults (mode 600) |
 
 </details>

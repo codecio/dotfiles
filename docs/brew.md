@@ -58,8 +58,8 @@ make apps
 - **Productivity:** Rectangle, Typora, Microsoft 365 Copilot
 - **Security:** Keeper Password Manager
 - **Communication:** Slack, Windows App
-- **Media:** Spotify, Kap, OBS
-- **Dev tools:** Cursor, VS Code, Docker Desktop, Postman, DBeaver, Android platform tools, etc.
+- **Media:** Spotify, Kap
+- **Dev tools:** Cursor, VS Code, Claude, Docker Desktop, Postman, DBeaver Community, Apache Directory Studio, Copilot CLI, Keystore Explorer
 - **Utilities:** Brave Browser, SensibleSideButtons
 
 To add a new GUI app: add a `cask "…"` line under the right section in `Brewfile.apps`, then run `make apps`.

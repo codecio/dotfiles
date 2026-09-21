@@ -9,7 +9,7 @@ dotfiles/                  git clone target; chezmoi sourceDir after init
 ├── home/                  chezmoi source (.chezmoiroot = home)
 │   ├── dot_*              → ~/.foo
 │   ├── dot_config/        → ~/.config/
-│   ├── private_dot_ssh/   → ~/.ssh/ (mode 600)
+│   ├── private_dot_ssh/   → ~/.ssh/ (dir 700; private_ files 600)
 │   └── .chezmoi.toml.tmpl → ~/.config/chezmoi/chezmoi.toml on init
 ├── Brewfile*              Homebrew splits — see brew.md
 ├── Extfile*               editor extensions — see editors.md
