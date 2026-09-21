@@ -11,7 +11,7 @@ Work-machine dotfiles for `github.com/codecio/dotfiles` (macOS now; Windows appl
 
 | Path | Role |
 |------|------|
-| `home/` | Chezmoi source (`dot_foo` → `~/.foo`, `private_dot_ssh/` → `~/.ssh/`, `.tmpl` for templates) |
+| `home/` | Chezmoi source (`dot_foo` → `~/.foo`, `private_dot_ssh/` → `~/.ssh/`, `private_` files mode 600, `.tmpl` for templates) |
 | `Brewfile` | Core dotfiles-required CLI tools only |
 | `Brewfile.cli` | Daily CLI toolkit (cloud, k8s, langs, etc.) |
 | `Brewfile.apps` | GUI apps (Rectangle, Slack, Spotify, …) |

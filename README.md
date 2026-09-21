@@ -45,4 +45,4 @@ By directory, not by laptop:
 
 Full index: [docs/README.md](docs/README.md).
 
-After bootstrap: `gh auth login`, `atuin register`, and in tmux `prefix + I` for TPM plugins.
+After bootstrap: `make cli`, `make apps`, and `make ext` when you want those extras, then `gh auth login`, `atuin register`, and in tmux `prefix + I` for TPM plugins.

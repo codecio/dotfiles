@@ -14,6 +14,8 @@ After bootstrap, use `make <target>` from the repo root for daily ops (`make hel
 3. `cd ~/dotfiles && make bootstrap` — Homebrew, core Brewfile, chezmoi init/apply, TPM, pre-commit hooks
 4. `make lint`
 
+Daily extras are **not** in bootstrap — install when you want them: `make cli`, `make apps`, then `make ext` (see [editors.md](editors.md): apps before ext).
+
 </details>
 
 ## Existing machine
@@ -36,6 +38,9 @@ Run only what you need:
 ```bash
 make brew-bundle      # re-sync Brewfile packages
 make apply            # apply dotfile changes without full bootstrap
+make cli              # optional: Brewfile.cli daily CLI toolkit
+make apps             # optional: Brewfile.apps GUI casks
+make ext              # optional: editor extensions from Extfile (after apps if you use those editors)
 ```
 
 </details>
@@ -63,6 +68,9 @@ make apply            # apply dotfile changes without full bootstrap
 <summary>Manual steps after bootstrap</summary>
 
 - `make lint` (hooks installed during bootstrap)
+- `make cli` — daily CLI formulae from `Brewfile.cli`
+- `make apps` — GUI casks from `Brewfile.apps`
+- `make ext` — VS Code and Cursor extensions from `Extfile` (+ per-editor deltas)
 - `gh auth login`
 - `atuin register`
 - In tmux: `prefix + I` to install TPM plugins

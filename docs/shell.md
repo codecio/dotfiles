@@ -112,6 +112,10 @@ After apply: `prefix + I` in tmux to install plugins (bootstrap clones TPM if mi
 
 </details>
 
+## Git ignores
+
+Global patterns live in `home/dot_gitignore_global` → `~/.gitignore_global`, wired through `core.excludesfile` in `dot_gitconfig.tmpl`. See [chezmoi.md](chezmoi.md#git-identity).
+
 ## Tool cheat-sheet
 
 <details>

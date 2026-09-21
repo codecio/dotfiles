@@ -685,6 +685,7 @@ These install with `make apps`. User-facing applications — not required for do
 |-----|---------|------|
 | Cursor | AI-first code editor (`no-binaries` avoids Gatekeeper prompt) | https://cursor.com |
 | Visual Studio Code | Open-source code editor | https://code.visualstudio.com |
+| Claude | Anthropic Claude desktop chat app | https://claude.ai/download |
 | Docker Desktop | Local containers and Kubernetes | https://www.docker.com/products/docker-desktop/ |
 | Postman | API development and testing | https://www.postman.com |
 | DBeaver Community | Universal database / SQL client | https://dbeaver.io |
@@ -704,4 +705,4 @@ These install with `make apps`. User-facing applications — not required for do
 - [brew.md](brew.md) — Brewfile architecture (core vs cli vs apps vs archive)
 - [bootstrap.md](bootstrap.md) — fresh Mac setup and `make bootstrap`
 - [shell.md](shell.md) — zsh, Starship, fzf, tmux config paths
-- [chezmoi.md](chezmoi.md) — profiles, apply, add files
+- [chezmoi.md](chezmoi.md) — init, apply, path-based git identity

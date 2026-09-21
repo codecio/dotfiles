@@ -1,1 +1,11 @@
-# Global gitignore — add patterns here or in ~/.gitignore_global.local
+# Global ignore for all repos via core.excludesfile in ~/.gitconfig.
+
+.DS_Store
+.AppleDouble
+.LSOverride
+*~
+*.swp
+*.swo
+.env
+.env.*
+!.env.example
