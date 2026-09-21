@@ -1,6 +1,22 @@
 # Cursor Plugins & Skills
 
-What I run in Cursor: **marketplace plugins** (installed via Cursor, cached under `~/.cursor/plugins/`) and **personal skills** (chezmoi-managed under `home/dot_cursor/skills/`). Plugins are managed by Cursor and synced to my account, so they are re-installed per machine from the UI — they are **not** carried by this repo. This page is the inventory + runbook.
+What I run in Cursor: **marketplace plugins** (installed via Cursor, cached under `~/.cursor/plugins/`), **repo agent baseline** (`AGENTS.md`, `.cursor/rules/dotfiles.mdc`, project skill `resume-dotfiles`), and **personal skills** (chezmoi-managed under `home/dot_cursor/skills/`). Plugins are managed by Cursor and synced to my account, so they are re-installed per machine from the UI — they are **not** carried by this repo. This page is the inventory + runbook.
+
+<details>
+<summary>Agent baseline in this repo (new session / cloud)</summary>
+
+Cursor has no memory between chats. Official stack: committed **`AGENTS.md`** plus project **rules** and **skills** ([Rules](https://cursor.com/docs/rules.md), [Skills](https://cursor.com/docs/skills.md), [Cloud agent best practices](https://cursor.com/docs/cloud-agent/best-practices.md)).
+
+| Artifact | Role |
+|----------|------|
+| [AGENTS.md](../AGENTS.md) | Plain-markdown onboarding, non-negotiables, doc map, how to resume |
+| `.cursor/rules/dotfiles.mdc` | Same guardrails injected every session (`alwaysApply: true`) |
+| `.cursor/skills/resume-dotfiles/` | Explicit `/resume-dotfiles` — git state, no redo of landed work |
+| `~/.cursor/skills/handoff` (chezmoi) | `@handoff` — compact handoff doc for another agent (temp file, not workspace) |
+
+Bridge from the last chat: `@Chats`, shared transcript Fork, or pstack **session pickup** / **pause safely** when using `/poteto-mode`.
+
+</details>
 
 ## Installed inventory
 

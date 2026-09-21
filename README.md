@@ -28,6 +28,7 @@ On a machine that already has brew and git: `make brew-bundle`, `make apply`, pl
 | `Extfile*` | VS Code + Cursor extensions — `make ext` |
 | `scripts/` | Makefile helpers (`ext.sh`) |
 | `docs/` | [Index](docs/README.md) |
+| `AGENTS.md` | Cursor agent baseline (new session / cloud) |
 
 Machine-local shell extras (not in git): `~/.zshenv.local`, `~/.zshrc.local`.
 

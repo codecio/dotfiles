@@ -6,6 +6,9 @@ How this repo is laid out, and where each topic lives. `make help` is the comman
 
 ```
 dotfiles/                  git clone target; chezmoi sourceDir after init
+├── AGENTS.md              Cursor agent baseline + session resume pointers
+├── .cursor/rules/         always-applied project rules (dotfiles.mdc)
+├── .cursor/skills/        project skills (e.g. resume-dotfiles)
 ├── home/                  chezmoi source (.chezmoiroot = home)
 │   ├── dot_*              → ~/.foo
 │   ├── dot_config/        → ~/.config/
