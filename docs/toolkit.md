@@ -46,7 +46,7 @@ starship explain          # decode current prompt segments
 Docs: https://starship.rs/config/
 
 #### `atuin`
-Shell history sync and search — fuzzy, context-aware replacement for Ctrl+R.
+Shell history sync and search — fuzzy, context-aware replacement for Ctrl+R. Initialized in `~/.zshrc`; config at `~/.config/atuin/config.toml`. Enter puts the selected command on the prompt for editing instead of running it (`enter_accept = false`).
 ```bash
 atuin search kubectl      # fuzzy-search past commands
 atuin sync                # sync history across machines
