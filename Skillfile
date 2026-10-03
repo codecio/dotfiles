@@ -1,0 +1,22 @@
+# Personal Cursor skills and rules, and where each one came from.
+# `make skills` shows drift, `make skills-pull` brings upstream changes in.
+# Format and modes: see the header of scripts/skills.sh.
+#
+# Anything derived from employer sources lives in a private repo, linked in
+# as Skillfile.local (gitignored). Never add it here.
+
+upstream mattpocock https://github.com/mattpocock/skills
+deploy chezmoi
+
+# --- mattpocock/skills ---
+merge skills/handoff                mattpocock:skills/productivity/handoff
+merge skills/research               mattpocock:skills/engineering/research
+# Upstream renamed this to writing-for-agents and restructured it (1fc6573).
+# This copy is the pre-rename version; track reports changes to the successor.
+track skills/writing-great-skills   mattpocock:skills/productivity/writing-for-agents
+# Fork: upstream grill-me only delegates to /grilling, which asks in numbered
+# rounds. This one stays self-contained and asks one question at a time.
+track skills/grill-me               mattpocock:skills/productivity/grilling
+
+# --- mine ---
+local rules/pstack-models.mdc

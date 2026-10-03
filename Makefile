@@ -37,6 +37,7 @@ RESET := \033[0m
         apply diff edit status sync lint \
         bootstrap upgrade reinit reset-baseline clean whoami apps cli \
         ext ext-diff ext-dump ext-prune \
+        skills skills-pull skills-diff skills-adopt skills-test \
         xcode-clt brew brew-bundle chezmoi-init fzf-install tpm-install hooks-install
 
 ##@ Daily ops
@@ -145,6 +146,31 @@ ext-dump: ## Append extensions installed by hand into the Extfile set
 # `make ext-prune FORCE=1` actually uninstalls.
 ext-prune: ## Uninstall extensions missing from the Extfile set (dry-run; FORCE=1 applies)
 	@EXT_PRUNE_FORCE=$(if $(FORCE),1,0) $(REPO)/scripts/ext.sh prune
+
+##@ Cursor skills
+
+# Teaching note: Skillfile follows the Brewfile/Extfile shape. vendor/ keeps the
+# pristine upstream copy each skill was last synced from, which is what lets
+# skills-pull three-way merge upstream changes into your edited copy instead of
+# overwriting it. Skillfile.local (gitignored) links in the private work repo.
+
+skills: ## Show skill/rule drift vs upstream, plus anything Cursor loads untracked
+	@$(REPO)/scripts/skills.sh status
+
+skills-pull: ## Merge upstream changes into skills (all, or NAME=handoff)
+	@$(REPO)/scripts/skills.sh pull $(NAME)
+	@printf "Review with $(CYAN)git diff$(RESET), then $(CYAN)make apply$(RESET) to deploy.\n"
+
+skills-diff: ## Show your edits and pending upstream changes (NAME=handoff)
+	$(if $(NAME),,$(error NAME is required, e.g. make skills-diff NAME=handoff))
+	@$(REPO)/scripts/skills.sh diff $(NAME)
+
+skills-adopt: ## Start tracking a new Skillfile entry (NAME=x, optional REF=<commit>)
+	$(if $(NAME),,$(error NAME is required, e.g. make skills-adopt NAME=handoff))
+	@$(REPO)/scripts/skills.sh adopt $(NAME) $(REF)
+
+skills-test: ## Run the skills.sh tests in a throwaway temp dir
+	@zsh $(REPO)/scripts/skills.test.sh
 
 ##@ Bootstrap sub-steps (rarely needed individually)
 

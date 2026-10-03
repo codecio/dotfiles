@@ -1,6 +1,6 @@
 # Cursor Plugins & Skills
 
-What I run in Cursor: **marketplace plugins** (installed via Cursor, cached under `~/.cursor/plugins/`), **repo agent baseline** (`AGENTS.md`, `.cursor/rules/dotfiles.mdc`, project skill `resume-dotfiles`), and **personal skills** (chezmoi-managed under `home/dot_cursor/skills/`). Plugins are managed by Cursor and synced to my account, so they are re-installed per machine from the UI — they are **not** carried by this repo. This page is the inventory + runbook.
+What I run in Cursor: **marketplace plugins** (installed via Cursor, cached under `~/.cursor/plugins/`), **repo agent baseline** (`AGENTS.md`, `.cursor/rules/dotfiles.mdc`, project skill `resume-dotfiles`), and **personal skills** (chezmoi-managed under `home/dot_cursor/skills/`, listed in `Skillfile` with their upstream). Plugins are managed by Cursor and synced to my account, so they are re-installed per machine from the UI — they are **not** carried by this repo. This page is the inventory + runbook.
 
 <details>
 <summary>Agent baseline in this repo (new session / cloud)</summary>
@@ -23,33 +23,111 @@ Bridge from the last chat: `@Chats`, shared transcript Fork, or pstack **session
 <details>
 <summary>Marketplace plugins currently installed</summary>
 
-| Plugin | Version | Author | What it gives me |
-|--------|---------|--------|------------------|
-| `pstack` | 0.11.7 | Lauren Tan | Rigorous, parallelizable agent workflows via `/poteto-mode` |
-| `cursor-team-kit` | 1.2.0 | Cursor | CI, code review, shipping, verification, cleanup workflows |
-| `datadog` | 0.7.14 | Datadog | Datadog MCP — query logs, metrics, traces, dashboards in chat (preview) |
-| `aws-core` | 1.1.0 | AWS | IaC (CDK/CloudFormation) + core services, observability, messaging, SDKs |
-| `aws-serverless` | 1.1.1 | AWS | Design/build/deploy/debug serverless (Lambda, SAM, API Gateway, Step Functions) |
-| `deploy-on-aws` | 1.2.0 | AWS | Deploy to AWS with architecture recs, cost estimates, draw.io diagrams |
+| Plugin | Author | What it gives me |
+|--------|--------|------------------|
+| `pstack` | Lauren Tan | Rigorous, parallelizable agent workflows via `/poteto-mode` |
+| `cursor-team-kit` | Cursor | CI, code review, shipping, verification, cleanup workflows |
+| `atlassian` | Atlassian | Jira and Confluence MCP, plus skills for triage, status reports, and backlogs |
+| `datadog` | Datadog | Datadog MCP — query logs, metrics, traces, dashboards in chat (preview) |
+| `aws-core` | AWS | IaC (CDK/CloudFormation) + core services, observability, messaging, SDKs |
+| `aws-serverless` | AWS | Design/build/deploy/debug serverless (Lambda, SAM, API Gateway, Step Functions) |
+| `deploy-on-aws` | AWS | Deploy to AWS with architecture recs, cost estimates, draw.io diagrams |
 
-Source of truth for enabled/disabled state is **Customize → Plugins** in Cursor, not the filesystem.
+`make skills` prints the installed version of each plugin. Source of truth for enabled/disabled state is **Customize → Plugins** in Cursor, not the filesystem.
 
 </details>
 
 <details>
 <summary>Personal skills (chezmoi-managed, in this repo)</summary>
 
-These live under `home/dot_cursor/skills/` and apply to `~/.cursor/skills/` on `chezmoi apply` — see [chezmoi.md](chezmoi.md).
+These live under `home/dot_cursor/skills/` and apply to `~/.cursor/skills/` on `chezmoi apply` — see [chezmoi.md](chezmoi.md). `Skillfile` lists each one with its upstream path and a mode that says how upstream changes reach it.
 
-| Skill | Invocation | What it does |
-|-------|-----------|--------------|
-| `grill-me` | type `@grill-me` | Relentless one-question-at-a-time interview to sharpen a plan/decision |
-| `research` | auto or by name | Background agent investigates against primary sources, writes cited findings |
-| `handoff` | type `@handoff` | Compact the conversation into a handoff doc for a fresh agent |
-| `writing-great-skills` | type `@writing-great-skills` | Reference for authoring predictable skills (+ `GLOSSARY.md`) |
-| `teach` | type `@teach` | Stateful multi-session teaching workspace |
+| Skill | Mode | Invocation | What it does |
+|-------|------|-----------|--------------|
+| `grill-me` | track | type `@grill-me` | Relentless one-question-at-a-time interview to sharpen a plan/decision |
+| `research` | merge | auto or by name | Background agent investigates against primary sources, writes cited findings |
+| `handoff` | merge | type `@handoff` | Compact the conversation into a handoff doc for a fresh agent |
+| `writing-great-skills` | track | type `@writing-great-skills` | Reference for authoring predictable skills (+ `GLOSSARY.md`). Upstream renamed it `writing-for-agents`. |
 
-Origin: derived from [mattpocock/skills](https://github.com/mattpocock/skills).
+Origin: derived from [mattpocock/skills](https://github.com/mattpocock/skills), MIT. The license is in `vendor/mattpocock-skills.LICENSE`.
+
+`Skillfile` also tracks one rule, `~/.cursor/rules/pstack-models.mdc`, as a `local` entry.
+
+</details>
+
+<details>
+<summary>Skillfile modes</summary>
+
+| Mode | Use it for | What `pull` does |
+|------|-----------|------------------|
+| `merge` | A copy of an upstream skill with a few edits of your own | Three-way merges upstream changes into your copy. Overlapping edits get conflict markers. |
+| `track` | A fork or rewrite that no longer lines up with upstream line by line | Updates `vendor/<name>/` only. You carry changes over by hand. |
+| `local` | A skill or rule with no upstream | Nothing |
+| `watch` | An upstream you want alerts for, with nothing deployed | Updates `vendor/<name>/` only |
+
+`vendor/<name>/` holds the upstream files as of the last pull, and `Skillfile.lock` records the commit. Each entry has its own copy, so pulling one entry never hides an upstream change from another.
+
+</details>
+
+## Keep skills in sync with upstream
+
+<details>
+<summary>Check for and pull upstream changes</summary>
+
+`make skills` prints one table per Skillfile. After the tables, it lists what else Cursor loads: skills that no Skillfile covers, plugins with versions, the built-in skill count, and skill names that more than one source provides.
+
+- LOCAL is `clean` (same as the upstream base), `modified` (you edited it), `conflict` (unresolved markers), or `derived` (a `track` entry).
+- UPSTREAM is `current`, `changed` (upstream has commits you have not pulled), `missing` (the upstream path is gone), or `unreachable`.
+
+To take upstream changes into a skill:
+
+1. Run `make skills-diff NAME=<skill>` to see your edits and the incoming upstream changes.
+2. Run `make skills-pull NAME=<skill>`. Leave out `NAME` to pull every entry.
+3. If the pull reports `CONFLICT`, resolve the `<<<<<<< local` markers in the file under `home/dot_cursor/`. The pull has already moved `vendor/` to the new upstream, so do not pull again to retry. A pull refuses to touch an entry until its markers are gone.
+4. Review with `git diff`, then run `make apply`.
+
+For a `track` entry, the pull changes only `vendor/<skill>/`. Read `git diff -- vendor/<skill>` and carry over what matters by hand.
+
+To track a new upstream skill, add a line to `Skillfile`, then run `make skills-adopt NAME=<skill>`. If your copy came from an older upstream commit, pass `REF=<commit>` so the first pull merges from the right base.
+
+To remove a skill, delete its `Skillfile` line, `home/dot_cursor/skills/<skill>/`, `vendor/<skill>/`, and its `Skillfile.lock` row. Then delete `~/.cursor/skills/<skill>/`, because `chezmoi apply` does not remove files it stops managing. mattpocock's `teach` was removed this way because it clashed with pstack's `/teach`.
+
+Do not run `npx skills update` on these skills. It replaces the local files and drops your edits.
+
+`make skills-test` runs the tests for `scripts/skills.sh` in a temporary directory.
+
+</details>
+
+<details>
+<summary>Keep work skills out of this repo</summary>
+
+Skills and rules ported from employer sources live in a private repo at `~/development/repos/work-agent-config`. It has its own `Skillfile` with `deploy symlink`. Its `make install` creates two links:
+
+- Each skill and rule into `~/.cursor/`.
+- Its `Skillfile` to `~/dotfiles/Skillfile.local` (gitignored), so `make skills` here reports both repos.
+
+Keeping work content out of this public repo is a manual discipline. Nothing enforces it, so check `git diff` before you commit anything an agent wrote.
+
+</details>
+
+## What the CLI and the GUI load
+
+<details>
+<summary>Skill and rule sources, measured</summary>
+
+Measured on Cursor Agent CLI `2026.09.23-86fc751` by asking the agent to list the rules and skills in its context.
+
+| Source | CLI (`agent`) |
+|--------|---------------|
+| `~/.cursor/skills/`, including symlinked skills | Loaded |
+| Plugin skills | Loaded |
+| Project `.cursor/rules/` and project `AGENTS.md` | Loaded |
+| `~/.cursor/rules/*.mdc`, including symlinked rules | Loaded when `agent` runs from a folder under `~`. Not loaded from `/tmp`. |
+| Plugin `alwaysApply` rules (cursor-team-kit) | Not loaded, in the GUI either |
+
+Cursor's [rules docs](https://cursor.com/docs/rules.md) do not list `~/.cursor/rules`. It works because Cursor reads `.cursor/rules` from parent folders too, and `~` is a parent of every project under it. This is inferred from the results above, and the GUI labels these files as workspace rules, not user rules. Keep projects under `~` and both the GUI and the CLI apply them.
+
+Other machines and cloud agents do not see these files. The documented rule sources that sync are User Rules (**Customize → Rules**, stored in your account, not in files) and Team Rules.
 
 </details>
 
@@ -79,7 +157,7 @@ If plugins don't appear in the marketplace:
 <details>
 <summary>Post-install configuration</summary>
 
-- **pstack models:** run `/setup-pstack` to pick which model each role uses. Writes `~/.cursor/rules/pstack-models.mdc` (`alwaysApply: true`); skills fall back to inline defaults for absent lines. Machine/model-specific — not tracked in this repo.
+- **pstack models:** run `/setup-pstack` to pick which model each role uses. Writes `~/.cursor/rules/pstack-models.mdc` (`alwaysApply: true`); skills fall back to inline defaults for absent lines. After re-running it, run `chezmoi re-add ~/.cursor/rules/pstack-models.mdc` to keep the repo copy current. The CLI reads it only when run from a folder under `~` (see [What the CLI and the GUI load](#what-the-cli-and-the-gui-load)).
 - **Datadog:** on install, set the `DD_MCP_DOMAIN` variable to your org's MCP domain (e.g. `mcp.datadoghq.com`, `mcp.us5.datadoghq.com`) per the [Datadog site guide](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site). Requires Datadog auth.
 - **Personal skills** (chezmoi): `chezmoi apply` drops them into `~/.cursor/skills/`. Reload the Cursor window to register new skills.
 
