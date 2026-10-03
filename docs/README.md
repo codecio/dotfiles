@@ -38,4 +38,5 @@ Edit `home/`, then `make apply`. Do not edit live `~/.zshrc` / `~/.gitconfig`.
 | [python.md](python.md) | Interpreters, uv, pip guard |
 | [toolkit.md](toolkit.md) | Per-tool purpose, usage, links |
 | [cursor-plugins.md](cursor-plugins.md) | Cursor plugins, personal skills, upstream sync, what the CLI loads |
+| [workflow/long-running-cursor-tasks.md](workflow/long-running-cursor-tasks.md) | Run a long Cursor task across sessions with handoff, loop, and resume |
 `docs/research/` is gitignored local notes. Durable conclusions belong in the pages above.
