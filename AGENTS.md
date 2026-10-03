@@ -7,7 +7,7 @@ Chezmoi-managed **work-machine** dotfiles for macOS (`github.com/codecio/dotfile
 - Edit chezmoi source under `home/`, then `make apply`. Do not edit live `~/.zshrc`, `~/.gitconfig`, or other applied files in place.
 - `Brewfile` is dotfiles-required CLI only. Daily tools go in `Brewfile.cli`, GUI casks in `Brewfile.apps`.
 - `Extfile` entries must resolve on **both** Microsoft Marketplace and OpenVSX, or `make ext` fails on one editor.
-- Public repo. No employer hostnames, fleet IPs, or secrets in committed files.
+- Public repo. No employer hostnames, fleet IPs, or secrets in committed files. Work-derived skills live in the private work repo, never in `Skillfile`.
 - Do not add Cursor **agent** shell integration globally in `home/dot_zshrc` (network latency on every shell). See `docs/shell.md`.
 
 Always-on guardrails also live in `.cursor/rules/dotfiles.mdc` (same content, rule injection).
@@ -30,12 +30,13 @@ Bootstrap and Brew splits: [docs/bootstrap.md](docs/bootstrap.md), [docs/brew.md
 | `home/` | Chezmoi source (`dot_foo` → `~/.foo`, `private_` → mode 600, `.tmpl` templates) |
 | `Makefile` | Single entry point |
 | `Brewfile*` / `Extfile*` | Homebrew and VS Code + Cursor extensions |
-| `scripts/` | Makefile helpers (e.g. `ext.sh`) |
+| `scripts/` | Makefile helpers (e.g. `ext.sh`, `skills.sh`) |
+| `Skillfile` / `Skillfile.lock` / `vendor/` | Personal Cursor skills: upstream sources, pinned commits, pristine upstream copies |
 | `docs/` | Human runbooks |
 
 Git identity is **path-based** (`includeIf` in `home/dot_gitconfig.tmpl`), not per laptop. Do not collapse work and personal profiles.
 
-Machine-local only (not in git): `~/.zshenv.local`, `~/.zshrc.local`.
+Machine-local only (not in git): `~/.zshenv.local`, `~/.zshrc.local`, `Skillfile.local`.
 
 ## Continuing from a prior session
 
@@ -58,6 +59,7 @@ Do not redo work already landed on the branch unless verification failed on the 
 | Daily CLI / GUI | `Brewfile.cli` / `Brewfile.apps` + `make cli` / `make apps` |
 | Editor extensions | Edit `Extfile*` + `make ext`; drift check `make ext-diff` |
 | Cursor plugins & skills | [docs/cursor-plugins.md](docs/cursor-plugins.md); personal skills in `home/dot_cursor/skills/` |
+| Update skills from upstream | `make skills`, then `make skills-pull NAME=x`, review `git diff`, `make apply` |
 
 ## Before you commit
 

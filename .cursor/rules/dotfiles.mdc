@@ -24,6 +24,7 @@ New session or cloud agent: read [AGENTS.md](../../AGENTS.md) first; invoke `/re
 | `Makefile` | Single entry point — `make help` lists all targets |
 | `scripts/` | Helpers invoked by the Makefile (e.g. `ext.sh`) |
 | `.pre-commit-config.yaml` + `.gitleaks.toml` | Secret scanning (keep) |
+| `Skillfile` / `Skillfile.lock` / `vendor/` | Personal Cursor skills and their upstreams; `vendor/` is pristine upstream, never edit it |
 
 ## Conventions
 
@@ -43,12 +44,15 @@ New session or cloud agent: read [AGENTS.md](../../AGENTS.md) first; invoke `/re
 - Apply changes: `make apply`
 - Full sync: `make sync`
 - Check for leaks: `make lint`
+- Check skills against upstream: `make skills`
+- Take upstream skill changes: `make skills-pull NAME=x`, review `git diff`, then `make apply`
 
 ## Do NOT
 
 - Put SOPS/age/Bitwarden into chezmoi apply or core `Brewfile` — repo files stay plaintext; those CLIs may live in `Brewfile.cli` as optional tools only
 - Commit `Brewfile.archive` (gitignored)
-- Add work hostnames, IPs, employer names, or fleet details to committed files (public repo)
+- Add work hostnames, IPs, employer names, or fleet details to committed files (public repo). Work-derived skills go in the private work repo, not `Skillfile`
+- Run `npx skills update` on Skillfile skills — it overwrites local edits
 - Edit `~/.zshrc`, `~/.gitconfig`, or other live home files — edit `home/` source + `make apply`
 - Add daily CLI tools or GUI apps to `Brewfile` — use `Brewfile.cli` or `Brewfile.apps` instead
 - Put an extension in `Extfile` unless it resolves on **both** the Microsoft Marketplace and OpenVSX — otherwise `make ext` fails on the editor that can't reach it
