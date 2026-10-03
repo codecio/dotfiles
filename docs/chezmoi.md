@@ -51,14 +51,14 @@ Windows is a **different apply path** (second chezmoi source or a second repo), 
 
 | Path prefix | Included file | `user.name` / `user.email` |
 |-------------|---------------|----------------------------|
-| `~/development/` | `~/.gitconfig.work` (`dot_gitconfig.work`) | `<work-name>` / `<work-email>` |
+| `~/development/` | `~/.gitconfig.work` (`dot_gitconfig.work`), which includes `~/.gitconfig.work.local` | `<work-name>` / `<work-email>` |
 | `~/home/` | `~/.gitconfig.personal` (`dot_gitconfig.personal`) | codecio / matt@colecio.com |
 | `~/dotfiles/` | `~/.gitconfig.personal` | codecio / matt@colecio.com |
 | everywhere else | default in `dot_gitconfig.tmpl` | codecio / matt@colecio.com |
 
 Trailing slashes on `gitdir:` paths matter — they mean “this directory and everything under it.”
 
-Edit the hardcoded values in `dot_gitconfig.tmpl`, `dot_gitconfig.personal`, and `dot_gitconfig.work` directly; no chezmoi template variables for name or email. Use placeholders like `<work-name>` / `<work-email>` in docs; real values live only in the gitconfig source files.
+Edit the hardcoded values in `dot_gitconfig.tmpl` and `dot_gitconfig.personal` directly; no chezmoi template variables for name or email. The work name and email live only in `~/.gitconfig.work.local`, a machine-local file outside this public repo. Create it on a new machine with a `[user]` block. Use placeholders like `<work-name>` / `<work-email>` in docs.
 
 `dot_gitconfig.tmpl` also sets `core.excludesfile` to `~/.gitignore_global` (source: `home/dot_gitignore_global`).
 
@@ -105,6 +105,6 @@ chezmoi add ~/.some-config
 |--------|-------|
 | `home/dot_gitconfig.tmpl` | Default git config + `includeIf` rules; includes `.personal` / `.work` fragments |
 | `home/dot_gitignore_global` | Global ignore patterns via `core.excludesfile` |
-| `home/private_dot_ssh/private_config.tmpl` | Static sanitized `Host *` defaults (mode 600) |
+| `home/private_dot_ssh/private_config.tmpl` | Static sanitized `Host *` defaults (mode 600). `Include config.local` reads work hosts from machine-local `~/.ssh/config.local` |
 
 </details>
