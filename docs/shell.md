@@ -65,6 +65,23 @@ Minimal config with character prompt symbols. Extend as needed.
 
 </details>
 
+## AWS helpers
+
+<details>
+<summary>~/.config/zsh/aws.zsh</summary>
+
+| Repo source | Destination |
+|-------------|-------------|
+| `home/dot_config/zsh/aws.zsh` | `~/.config/zsh/aws.zsh` |
+
+`dot_zshrc` sources this file after `compinit` when the `aws` CLI is installed. It defines `awsp`, `awsr`, `awsu`, and `awsw`. Usage is in [toolkit.md](toolkit.md#awscli).
+
+`awsp` checks the profile and region before it changes any environment variable. For an SSO profile, it first runs `aws sts get-caller-identity`. If that fails, it runs `aws sso login`. A failed login leaves the shell unchanged.
+
+The profile picker and Tab completion read profile names from `~/.aws/config` and `~/.aws/credentials` with awk, so they do not start the AWS CLI. `AWS_CONFIG_FILE` and `AWS_SHARED_CREDENTIALS_FILE` override those paths.
+
+</details>
+
 ## fastfetch
 
 <details>

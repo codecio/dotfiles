@@ -283,6 +283,14 @@ aws sts get-caller-identity
 aws eks update-kubeconfig --name my-cluster
 ```
 
+Shell helpers `awsp`, `awsr`, `awsu`, and `awsw` live in `~/.config/zsh/aws.zsh` and load from `~/.zshrc` when the `aws` CLI is installed.
+```bash
+awsp [profile] [region]   # switch profile (fzf picker if no profile); SSO login when expired
+awsr [region]             # switch region (fzf picker if no region)
+awsu                      # clear AWS session variables
+awsw                      # show current profile, region, and caller identity
+```
+
 Docs: https://docs.aws.amazon.com/cli/
 
 #### `flux`
