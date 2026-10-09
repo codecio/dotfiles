@@ -67,6 +67,9 @@ if [[ -n ${HOMEBREW_PREFIX:-} && -x "$HOMEBREW_PREFIX/bin/terraform" ]]; then
   complete -o nospace -C "$HOMEBREW_PREFIX/bin/terraform" terraform
 fi
 
+# --- AWS profile helpers (awsp, awsr, awsu, awsw) ---
+command -v aws &>/dev/null && [ -f ~/.config/zsh/aws.zsh ] && source ~/.config/zsh/aws.zsh
+
 # --- fzf ---
 [ -f ~/.config/fzf/fzf.zsh ] && source ~/.config/fzf/fzf.zsh
 (( $+widgets[fzf-cd-widget] )) && bindkey "ç" fzf-cd-widget   # ALT-C fallback when Option is not Meta
