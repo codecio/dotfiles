@@ -17,6 +17,7 @@ Always-on guardrails also live in `.cursor/rules/dotfiles.mdc` (same content, ru
 ```bash
 make help      # all targets
 make lint      # before commit (gitleaks, yaml, whitespace, …)
+make test      # every scripts/*.test.sh (CI runs make lint test)
 make apply     # after changing home/ templates
 git status && git diff
 ```
