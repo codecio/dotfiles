@@ -156,8 +156,9 @@ write_lock() {
 replace_vendor() {
   vendor_dir $1
   mkdir -p "${REPLY:h}"
-  rm -rf "$REPLY.new" && mv "$2" "$REPLY.new" && rm -rf "$REPLY" && mv "$REPLY.new" "$REPLY"
+  # vendor/ moves last: pull and status compare it to upstream to decide what is done.
   write_lock $1
+  rm -rf "$REPLY.new" && mv "$2" "$REPLY.new" && rm -rf "$REPLY" && mv "$REPLY.new" "$REPLY"
 }
 
 has_conflict() { [[ -e $1 ]] && grep -rqs '^<<<<<<< local' "$1"; }
