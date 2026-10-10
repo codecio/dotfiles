@@ -166,6 +166,7 @@ Git hook framework. Runs secret scanners and linters before commits.
 ```bash
 pre-commit install && pre-commit run --all-files
 make lint                 # run all hooks repo-wide
+make lint test            # what CI runs on every push and PR
 ```
 
 Docs: https://pre-commit.com/

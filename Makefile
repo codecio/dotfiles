@@ -34,7 +34,7 @@ RESET := \033[0m
 # Use = for deferred assignment. For paths and constants, := is the usual choice.
 
 .PHONY: help \
-        apply diff edit status sync lint \
+        apply diff edit status sync lint test \
         bootstrap upgrade reinit reset-baseline clean whoami apps cli \
         ext ext-diff ext-dump ext-prune \
         skills skills-pull skills-diff skills-adopt skills-test \
@@ -75,6 +75,12 @@ sync: reinit reset-baseline apply lint ## Full re-sync: regen chezmoi config, re
 
 lint: ## Run pre-commit on all files
 	@pre-commit run --all-files
+
+test: ## Run every scripts/*.test.sh
+	@rc=0; for f in $(REPO)/scripts/*.test.sh; do \
+		printf "$(CYAN)→ $${f:t}$(RESET)\n"; \
+		zsh "$$f" || rc=1; \
+	done; exit $$rc
 
 ##@ Setup & maintenance
 
