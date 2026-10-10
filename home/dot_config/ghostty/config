@@ -2,6 +2,8 @@
 font-family = "JetBrainsMono Nerd Font"
 font-size = 18
 font-feature = -liga
+font-thicken = true
+font-thicken-strength = 128
 theme = tokyonight
 cursor-style = block
 cursor-style-blink = true
