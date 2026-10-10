@@ -1,49 +1,52 @@
 # dotfiles
 
-Chezmoi-managed **macOS** dotfiles for work machines: Ghostty, zsh, Starship, tmux, git, Homebrew, editor extensions.
+Opinionated macOS dotfiles. [chezmoi](https://www.chezmoi.io/) manages the config for tools such as zsh, Starship, tmux, Ghostty, and git. Homebrew installs the tools and apps. One `Makefile` is the entry point for every task.
 
-Windows 11 is a later apply path (separate tree or repo). Git identity is path-based and independent of OS — see [docs/chezmoi.md](docs/chezmoi.md).
+## How it works
 
-## Quick start
+The repo holds the setup you want. Each `make` target applies one part of it to your Mac.
+
+```mermaid
+flowchart LR
+    upstream["Upstream skill repos"]
+
+    subgraph repo["This repo"]
+        home["home/<br>chezmoi source"]
+        brewfiles["Brewfile<br>Brewfile.cli<br>Brewfile.apps"]
+        extfiles["Extfile<br>Extfile.vscode<br>Extfile.cursor"]
+    end
+
+    subgraph mac["Your Mac"]
+        dots["~/.zshrc, ~/.gitconfig,<br>~/.config/, ~/.cursor/"]
+        pkgs["CLI tools and GUI apps"]
+        exts["VS Code and Cursor<br>extensions"]
+    end
+
+    upstream -->|"make skills-pull"| home
+    home -->|"make apply"| dots
+    brewfiles -->|"make brew-bundle<br>make cli<br>make apps"| pkgs
+    extfiles -->|"make ext"| exts
+```
+
+Edit files in `home/`, never the live copies in `~`. For example, `home/dot_zshrc` becomes `~/.zshrc` when you run `make apply`.
+
+## Set up a new Mac
 
 ```bash
 git clone https://github.com/codecio/dotfiles ~/dotfiles
 cd ~/dotfiles
-make bootstrap          # Xcode CLT, Homebrew, core Brewfile, chezmoi apply, TPM, hooks
-make help               # all targets
+make bootstrap
 ```
 
-On a machine that already has brew and git: `make brew-bundle`, `make apply`, plus `make cli` / `make apps` / `make ext` as needed. Details: [docs/bootstrap.md](docs/bootstrap.md).
+`make bootstrap` installs the Xcode Command Line Tools, Homebrew, and the core `Brewfile`, then applies `home/`. To add daily CLI tools, GUI apps, and editor extensions, run `make cli`, `make apps`, and `make ext`. The [bootstrap guide](docs/bootstrap.md) covers a Mac that already has Homebrew and the manual steps after bootstrap.
 
-## Layout
+## Daily use
 
-| Path | Role |
-|------|------|
-| `home/` | Chezmoi source (`.chezmoiroot` is `home`). `dot_zshrc` → `~/.zshrc`. Edit here, never live `~/.foo`. |
-| `Makefile` | Single entry point (`make help`) |
-| `Brewfile` | Tools the dotfiles themselves need — `make brew-bundle` |
-| `Brewfile.cli` | Daily CLI — `make cli` |
-| `Brewfile.apps` | GUI casks — `make apps` |
-| `Brewfile.archive` | Gitignored historical dump — do not commit |
-| `Extfile*` | VS Code + Cursor extensions — `make ext` |
-| `scripts/` | Makefile helpers (`ext.sh`) |
-| `docs/` | [Index](docs/README.md) |
-| `AGENTS.md` | Cursor agent baseline (new session / cloud) |
+| Command | What it does |
+|---------|--------------|
+| `make diff` | Show what `make apply` would change |
+| `make apply` | Apply changes from `home/` to your live files |
+| `make lint test` | Run the checks that CI runs on every push and pull request |
+| `make help` | List every target |
 
-Machine-local shell extras (not in git): `~/.zshenv.local`, `~/.zshrc.local`.
-
-## Git identity
-
-By directory, not by laptop:
-
-| Path | Identity |
-|------|----------|
-| `~/development/` | work (`~/.gitconfig.work`) |
-| `~/home/` and `~/dotfiles/` | personal (`~/.gitconfig.personal`) |
-| everywhere else | personal default in `~/.gitconfig` |
-
-## Docs
-
-Full index: [docs/README.md](docs/README.md).
-
-After bootstrap: `make cli`, `make apps`, and `make ext` when you want those extras, then `gh auth login`, `atuin register`, and in tmux `prefix + I` for TPM plugins.
+Settings for one machine go in `~/.zshenv.local` and `~/.zshrc.local`, outside the repo. Git picks your identity by directory, as the [chezmoi guide](docs/chezmoi.md) explains. Every other topic has a page in the [docs index](docs/README.md).
