@@ -156,6 +156,23 @@ check "skill in ~/.claude/skills listed" grep -Eq 'claude-only' "$out"
 check "plugin listed with version" grep -Eq 'plug +1\.2\.3' "$out"
 check "name clash with plugin skill flagged" grep -Eq 'alpha .*also provided by plugin plug' "$out"
 
+print "lock write failure"
+print "beta v3" > "$T/up-git/skills/beta/SKILL.md"
+g add -A && g commit -qm c5
+C5=$(git -C "$T/up-git" rev-parse HEAD)
+beta_row() { grep "^beta-fork"$'\t' "$T/pub/Skillfile.lock"; }
+chmod a-w "$T/pub/Skillfile.lock"
+nok "pull fails when the lock is read-only" sk pull beta-fork
+check "failed pull leaves the lock at c2" test "$(beta_row)" = "beta-fork"$'\t'"up:skills/beta"$'\t'"$C2"
+check "failed pull leaves vendor at c2" has "$T/pub/vendor/beta-fork/beta/SKILL.md" "beta v2"
+nok "adopt fails when the lock is read-only" sk adopt beta-fork "$C5"
+check "failed adopt leaves the lock at c2" test "$(beta_row)" = "beta-fork"$'\t'"up:skills/beta"$'\t'"$C2"
+check "failed adopt leaves vendor at c2" has "$T/pub/vendor/beta-fork/beta/SKILL.md" "beta v2"
+chmod u+w "$T/pub/Skillfile.lock"
+check "pull succeeds once the lock is writable" sk pull beta-fork
+check "retried pull moves the lock to c5" test "$(beta_row)" = "beta-fork"$'\t'"up:skills/beta"$'\t'"$C5"
+check "retried pull moves vendor to c5" has "$T/pub/vendor/beta-fork/beta/SKILL.md" "beta v3"
+
 print "manifest validation"
 print "merge skills/alpha up:skills/alpha" >> "$T/priv/Skillfile"
 print "upstream up $T/up-git" >> "$T/priv/Skillfile"
