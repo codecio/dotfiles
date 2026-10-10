@@ -73,8 +73,6 @@ codezombiech.gitignore
 github.vscode-github-actions
 # GitHub pull requests and issues in-editor
 github.vscode-pull-request-github
-# Git log, file history, and blame viewer
-donjayamanne.githistory
 
 # --- Formatting / Linting ---
 # Prettier formatter for JS / TS / CSS / MD / JSON
