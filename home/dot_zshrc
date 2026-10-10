@@ -40,7 +40,13 @@ if command -v eza &>/dev/null; then
 fi
 
 # --- Functions ---
-logout() { sudo launchctl bootout user/"$(id -u "$1")"; }
+# Shadows the builtin; with no user, defer to it so `logout` still ends a login shell
+logout() {
+  (( $# )) || { builtin logout; return }
+  local uid
+  uid=$(id -u -- "$1") || return
+  sudo launchctl bootout user/"$uid"
+}
 reload() { exec zsh -l; }
 
 # --- Prompt ---
