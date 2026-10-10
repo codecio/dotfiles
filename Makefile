@@ -147,11 +147,10 @@ ext-diff: ## Show extension drift between the Extfile set and both editors
 ext-dump: ## Append extensions installed by hand into the Extfile set
 	@$(REPO)/scripts/ext.sh dump
 
-# Teaching note: dry-run by default, like `brew bundle cleanup`. $(if …) expands
-# to 1 only when FORCE is non-empty, so `make ext-prune` previews and
-# `make ext-prune FORCE=1` actually uninstalls.
+# Teaching note: dry-run by default, like `brew bundle cleanup`. Only FORCE=1
+# applies; any other value previews.
 ext-prune: ## Uninstall extensions missing from the Extfile set (dry-run; FORCE=1 applies)
-	@EXT_PRUNE_FORCE=$(if $(FORCE),1,0) $(REPO)/scripts/ext.sh prune
+	@EXT_PRUNE_FORCE=$(if $(filter 1,$(FORCE)),1,0) $(REPO)/scripts/ext.sh prune
 
 ##@ Cursor skills
 
