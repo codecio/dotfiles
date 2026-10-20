@@ -20,3 +20,4 @@ track skills/grill-me               mattpocock:skills/productivity/grilling
 
 # --- mine ---
 local rules/pstack-models.mdc
+local rules/auto-skipped-questions.mdc
