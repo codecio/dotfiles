@@ -1,0 +1,29 @@
+---
+description: A skipped AskQuestion is involuntary and never consent. Pause only the fork it gated.
+alwaysApply: true
+---
+
+# Auto-skipped questions
+
+This user answers AskQuestion whenever they are at the keyboard. A `skipped` result with no selected option means a locked screen or dropped connection closed it. It is not an answer, consent, or delegation.
+
+## In an interactive chat
+
+- Do not map the skip onto an option or a default.
+- Stop work the question gates. Keep work already done safely.
+- Continue other reversible work only if it cannot make the choice harder to undo.
+- Then end the turn with one line that restates the open choice, and wait.
+
+This overrides "decide and keep going" guidance, including any "best guess when blocked" rule, for this case only.
+
+## Explicit delegation is an answer
+
+"You pick", "skip that question", or the same intent in plain words is an answer. Follow it and note the assumption, or write the `TODO(...)` placeholder a skill asks for.
+
+## While the user is away
+
+In a session the user said they are away from, do not raise AskQuestion. Decide calls the grant covers and log them. For a call only the user can make, use the default the plan names. With no named default, pick the most sensible option and keep going. Log every such call in the decision log and list it under "Calls I made for you" in the final chat summary. Resolve a skip that arrives anyway the same way. Always-pause actions and gates the user named still wait for the user.
+
+## Asking
+
+This rule covers skips. It is not permission to ask more.

@@ -51,7 +51,7 @@ These live under `home/dot_cursor/skills/` and apply to `~/.cursor/skills/` on `
 
 Origin: derived from [mattpocock/skills](https://github.com/mattpocock/skills), MIT. The license is in `vendor/mattpocock-skills.LICENSE`.
 
-`Skillfile` also tracks one rule, `~/.cursor/rules/pstack-models.mdc`, as a `local` entry.
+`Skillfile` also tracks two rules as `local` entries: `~/.cursor/rules/pstack-models.mdc` and `~/.cursor/rules/auto-skipped-questions.mdc`, which says what an agent does when an AskQuestion comes back skipped.
 
 </details>
 
