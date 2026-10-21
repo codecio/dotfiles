@@ -12,11 +12,11 @@ deploy chezmoi
 merge skills/handoff                mattpocock:skills/productivity/handoff
 merge skills/research               mattpocock:skills/engineering/research
 merge skills/wizard                 mattpocock:skills/engineering/wizard
-# Upstream renamed this to writing-for-agents and restructured it (1fc6573).
-# This copy is the pre-rename version; track reports changes to the successor.
-track skills/writing-great-skills   mattpocock:skills/productivity/writing-for-agents
+merge skills/writing-for-agents     mattpocock:skills/productivity/writing-for-agents
 merge skills/grill-me               mattpocock:skills/productivity/grill-me
 merge skills/grilling               mattpocock:skills/productivity/grilling
+merge skills/domain-modeling        mattpocock:skills/engineering/domain-modeling
+merge skills/grill-with-docs        mattpocock:skills/engineering/grill-with-docs
 
 # --- mine ---
 local rules/pstack-models.mdc

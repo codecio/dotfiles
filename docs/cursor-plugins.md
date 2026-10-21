@@ -46,10 +46,12 @@ These live under `home/dot_cursor/skills/` and apply to `~/.cursor/skills/` on `
 |-------|------|-----------|--------------|
 | `grill-me` | merge | type `@grill-me` | Starts a `grilling` session |
 | `grilling` | merge | auto or by name | Relentless interview in numbered rounds, each question with a recommended answer |
+| `grill-with-docs` | merge | type `@grill-with-docs` | Runs `grilling` and `domain-modeling` together, so the session records terms and decisions as it goes |
+| `domain-modeling` | merge | auto or by name | Keeps a repo's `GLOSSARY.md` of project terms and offers an ADR in `docs/adr/` only for hard-to-reverse, surprising decisions |
 | `research` | merge | auto or by name | Background agent investigates against primary sources, writes cited findings |
 | `handoff` | merge | type `@handoff` | Compact the conversation into a handoff doc for a fresh agent |
 | `wizard` | merge | auto or by name | Writes a staged bash script that walks you through setup only a human can do (API keys, dashboards, GitHub secrets) |
-| `writing-great-skills` | track | type `@writing-great-skills` | Reference for authoring predictable skills (+ `GLOSSARY.md`). Upstream renamed it `writing-for-agents`. |
+| `writing-for-agents` | merge | auto or by name | How to write skills and `AGENTS.md` files so agents follow them (+ `SKILL-MECHANICS.md`) |
 
 Origin: derived from [mattpocock/skills](https://github.com/mattpocock/skills), MIT. The license is in `vendor/mattpocock-skills.LICENSE`.
 
