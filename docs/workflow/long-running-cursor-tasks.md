@@ -23,7 +23,7 @@ In the current chat, name what the next session will do:
 /handoff continue the parser migration; next session picks up at the last failing fixture
 ```
 
-`/handoff` writes a compact doc in the OS temp directory (on macOS, `/tmp`), not in the repo. The doc should:
+`/handoff` writes a compact doc in the OS temp directory (`$TMPDIR`, which on macOS is under `/var/folders/`), not in the repo. The doc should:
 
 - Summarize only what a fresh agent needs
 - Point at specs, plans, ADRs, issues, commits, and diffs instead of copying them
