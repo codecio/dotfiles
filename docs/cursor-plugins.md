@@ -44,9 +44,11 @@ These live under `home/dot_cursor/skills/` and apply to `~/.cursor/skills/` on `
 
 | Skill | Mode | Invocation | What it does |
 |-------|------|-----------|--------------|
-| `grill-me` | track | type `@grill-me` | Relentless one-question-at-a-time interview to sharpen a plan/decision |
+| `grill-me` | merge | type `@grill-me` | Starts a `grilling` session |
+| `grilling` | merge | auto or by name | Relentless interview in numbered rounds, each question with a recommended answer |
 | `research` | merge | auto or by name | Background agent investigates against primary sources, writes cited findings |
 | `handoff` | merge | type `@handoff` | Compact the conversation into a handoff doc for a fresh agent |
+| `wizard` | merge | auto or by name | Writes a staged bash script that walks you through setup only a human can do (API keys, dashboards, GitHub secrets) |
 | `writing-great-skills` | track | type `@writing-great-skills` | Reference for authoring predictable skills (+ `GLOSSARY.md`). Upstream renamed it `writing-for-agents`. |
 
 Origin: derived from [mattpocock/skills](https://github.com/mattpocock/skills), MIT. The license is in `vendor/mattpocock-skills.LICENSE`.
