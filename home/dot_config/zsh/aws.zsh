@@ -42,6 +42,50 @@ _aws_valid_region() {
   [[ "$1" =~ $_AWS_REGION_PATTERN ]]
 }
 
+_aws_account_names_cache() {
+  print -r -- "${XDG_CACHE_HOME:-$HOME/.cache}/aws/account-names.tsv"
+}
+
+_aws_account_names_refresh() {
+  local cache_file cache_dir f content token region tmp out
+  cache_file=$(_aws_account_names_cache)
+  for f in "$HOME/.aws/sso/cache"/*.json(N.om); do
+    content=$(<"$f")
+    [[ $content =~ '"accessToken"[[:space:]]*:[[:space:]]*"([^"]+)"' ]] || continue
+    token=$match[1]
+    [[ $content =~ '"region"[[:space:]]*:[[:space:]]*"([^"]+)"' ]] || continue
+    region=$match[1]
+    break
+  done
+  [[ -n $token && -n $region ]] || return 1
+  out=$(aws sso list-accounts --region "$region" --access-token "$token" \
+    --query 'accountList[].[accountId,accountName]' --output text 2>/dev/null) &&
+    [[ -n $out ]] || return 1
+  cache_dir="${cache_file:h}"
+  mkdir -p "$cache_dir" || return 1
+  tmp="${cache_file}.$$"
+  print -r -- "$out" >"$tmp" || { rm -f "$tmp"; return 1 }
+  mv -f "$tmp" "$cache_file" || { rm -f "$tmp"; return 1 }
+}
+
+_aws_account_names_menu() {
+  local cfg="${AWS_CONFIG_FILE:-$HOME/.aws/config}"
+  local cache=$(_aws_account_names_cache)
+  _aws_profiles | awk -v cfg="$cfg" -v cache="$cache" '
+    BEGIN {
+      while ((getline line < cache) > 0) { split(line, a, "\t"); names[a[1]] = a[2] }
+      while ((getline line < cfg) > 0) {
+        if (line ~ /^[[:space:]]*\[/) {
+          p = line; sub(/^[[:space:]]*\[[[:space:]]*(profile[[:space:]]+)?/, "", p); sub(/[[:space:]]*\].*$/, "", p)
+        } else if (line ~ /^[[:space:]]*sso_account_id[[:space:]]*=/) {
+          id = line; sub(/^[^=]*=[[:space:]]*/, "", id); sub(/[[:space:]]+$/, "", id); acct[p] = id
+        }
+      }
+    }
+    { prof[NR] = $0; name[NR] = names[acct[$0]]; if (length(name[NR]) > w) w = length(name[NR]) }
+    END { for (i = 1; i <= NR; i++) printf "%s\t%-*s%s%s\n", prof[i], w, name[i], (w ? "  " : ""), prof[i] }'
+}
+
 awsu() {
   unset "${_AWS_VARS[@]}"
   echo "AWS env cleared"
@@ -52,8 +96,11 @@ awsp() {
 
   if [[ -z "$profile" ]]; then
     local cfg="${AWS_CONFIG_FILE:-$HOME/.aws/config}"
-    local preview="awk -v p={} '${_AWS_AWK_BLOCK_MATCH} {f=1; print; next} /^\[/ {f=0} f' ${(q)cfg}"
-    profile=$(_aws_profiles | fzf --prompt='AWS profile> ' --height=40% --reverse \
+    local cache=$(_aws_account_names_cache)
+    [[ -f "$cache" ]] || _aws_account_names_refresh
+    local preview="awk -v p={1} '${_AWS_AWK_BLOCK_MATCH} {f=1; print; next} /^\[/ {f=0} f' ${(q)cfg}"
+    profile=$(_aws_account_names_menu | fzf --delimiter=$'\t' --with-nth=2 --accept-nth=1 \
+      --prompt='AWS profile> ' --height=40% --reverse \
       --preview "$preview" --preview-window=right,60%)
   fi
   [[ -z "$profile" ]] && return 1
@@ -72,6 +119,7 @@ awsp() {
     if ! aws sts get-caller-identity --profile "$profile" >/dev/null 2>&1; then
       print "SSO session expired, logging in..."
       aws sso login --profile "$profile" || return 1
+      _aws_account_names_refresh
     fi
   fi
 
