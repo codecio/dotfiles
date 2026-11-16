@@ -48,6 +48,14 @@ logout() {
   sudo launchctl bootout user/"$uid"
 }
 reload() { exec zsh -l; }
+# Cursor has no setting for the default window type; it reuses the last one
+cursor() {
+  if [[ $1 == (agent|tunnel) ]] || (( ${@[(I)--glass]} )); then
+    command cursor "$@"
+  else
+    command cursor --classic "$@"
+  fi
+}
 
 # --- Prompt ---
 command -v starship &>/dev/null && eval "$(starship init zsh)"
@@ -72,6 +80,7 @@ fi
 if [[ -n ${HOMEBREW_PREFIX:-} && -x "$HOMEBREW_PREFIX/bin/terraform" ]]; then
   complete -o nospace -C "$HOMEBREW_PREFIX/bin/terraform" terraform
 fi
+command -v task &>/dev/null && eval "$(task --completion zsh)"
 
 # --- AWS profile helpers (awsp, awsr, awsu, awsw) ---
 command -v aws &>/dev/null && [ -f ~/.config/zsh/aws.zsh ] && source ~/.config/zsh/aws.zsh
