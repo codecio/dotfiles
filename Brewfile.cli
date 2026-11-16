@@ -8,6 +8,8 @@ tap "fluxcd/tap"
 tap "hashicorp/tap"
 # sshpass tap for password-based SSH
 tap "hudochenkov/sshpass"
+# PostFinance tap (topf)
+tap "postfinance/tap"
 # Terraform linter tap (tflint)
 tap "terraform-linters/tap"
 
@@ -50,6 +52,8 @@ brew "kubectx"
 brew "kustomize"
 # Local Kubernetes cluster for testing
 brew "minikube"
+# Talos Linux cluster orchestrator
+cask "postfinance/tap/topf"
 # Multi-pod / multi-container log tailing for Kubernetes
 brew "stern"
 # Auto-generate documentation from Terraform modules
